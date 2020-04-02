@@ -28,6 +28,20 @@ angular.module("controller.issue", [])
                 });
                 return deferred.promise;
             },
+            createIssue: function (data) {
+                let deferred = $q.defer();
+                let url = baseUrl + '/issues/create';
+                $http({
+                    data: data,
+                    url: url,
+                    method: "POST"
+                }).then(function (data) {
+                    deferred.resolve(data.data);
+                }, function (data) {
+                    deferred.resolve(data);
+                });
+                return deferred.promise;
+            },
         }
     }])
     .controller("issueController", ["$scope", "$sce", "IssueService", function ($scope,$sce, IssueService) {
@@ -35,7 +49,10 @@ angular.module("controller.issue", [])
         $scope.trustAsHtml = function (value) {
             return $sce.trustAsHtml(value);
         };
+
         $scope.option_categories = [];
+        $scope.loading = false;
+        $scope.tryAgain = false;
         $scope.sub_categories = [];
         $scope.selection = {
         };
@@ -56,6 +73,20 @@ angular.module("controller.issue", [])
             },(error) => {
                 console.log(error)
             })
+        };
+        $scope.createIssue = function(){
+            $scope.loading = true;
+            $scope.tryAgain = false;
+            setTimeout(function () {
+                IssueService.createIssue($scope.selection).then((data) => {
+                    $scope.loading = false;
+                    window.location.href = '/issues/list';
+                },(error) => {
+                    $scope.loading = false;
+                    console.log(error)
+                })
+            }, 500);
+
         };
         $scope.init();
     }

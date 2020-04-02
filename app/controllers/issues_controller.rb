@@ -1,14 +1,34 @@
 class IssuesController < ApplicationController
   before_action :authenticate_user!
-
+  skip_before_action :verify_authenticity_token
 
   def list
-    @issues = Issue.where(user_id: current_user.id)
+    @issues = Issue.where(user_id: current_user.id).order("created_at desc")
 
   end
 
   def create
-
+    if request.method == "POST"
+      unless params[:category].present?
+        render json: {message: "Missing Value!", error: "Please provide your issue category"}, status: 422
+        return
+      end
+      issue = Issue.new
+      issue.issue_category_id = params[:category]
+      issue.issue_sub_category_id = params[:sub_category] if params[:sub_category].present?
+      issue.name = params[:name] if params[:name].present?
+      issue.description = params[:description] if params[:description].present?
+      issue.address = params[:address] if params[:address].present?
+      issue.pincode = params[:pincode] if params[:pincode].present?
+      issue.city = params[:city] if params[:city].present?
+      issue.user_id = current_user.id
+      issue.reported_at = DateTime.now
+      if issue.save
+        render json: {message: "Issue saved successfully", data: issue}, status: 200
+      else
+        render json: {message: "Unable to save your issue this time.", error: "Error: " +issue.errors.full_messages.join(",")}, status: 400
+      end
+    end
   end
 
   def categories

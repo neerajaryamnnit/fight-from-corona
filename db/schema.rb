@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_01_175540) do
+ActiveRecord::Schema.define(version: 2020_04_02_193559) do
 
   create_table "blazer_audits", force: :cascade do |t|
     t.integer "user_id"
@@ -109,6 +109,8 @@ ActiveRecord::Schema.define(version: 2020_04_01_175540) do
     t.datetime "resolved_at"
     t.integer "resolved_by_id"
     t.string "aasm_state"
+    t.integer "pincode"
+    t.string "city"
     t.index ["issue_category_id"], name: "index_issues_on_issue_category_id"
     t.index ["issue_sub_category_id"], name: "index_issues_on_issue_sub_category_id"
     t.index ["resolved_by_id"], name: "index_issues_on_resolved_by_id"

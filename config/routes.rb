@@ -9,6 +9,7 @@ Rails.application.routes.draw do
 
   get "issues/list"
   get "issues/create"
+  post "issues/create"
   get "issues/categories"
   get "issues/sub_categories"
 end
