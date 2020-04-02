@@ -55,3 +55,4 @@ gem 'blazer'
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'devise'
 gem 'aasm'
+gem 'dotenv-rails'

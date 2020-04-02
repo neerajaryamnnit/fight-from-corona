@@ -14,8 +14,9 @@ require("angular-aria")
 require("angular-messages")
 require("angular-material")
 require("./controller/login.js");
+require("./controller/issue_controller.js");
 require("./angular.js");
-require("@fortawesome/fontawesome-free")
+require("@ng-select/ng-select");
 
 
 

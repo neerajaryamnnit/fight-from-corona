@@ -8,5 +8,7 @@ Rails.application.routes.draw do
   post "verify_otp" => "users#verify_otp"
 
   get "issues/list"
-  post "issues/create"
+  get "issues/create"
+  get "issues/categories"
+  get "issues/sub_categories"
 end
