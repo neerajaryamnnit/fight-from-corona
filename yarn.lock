@@ -782,13 +782,6 @@
   resolved "https://registry.yarnpkg.com/@fortawesome/fontawesome-free/-/fontawesome-free-5.13.0.tgz#fcb113d1aca4b471b709e8c9c168674fbd6e06d9"
   integrity sha512-xKOeQEl5O47GPZYIMToj6uuA2syyFlq9EMSl2ui0uytjY9xbe8XS0pexNWmxrdcCyNGyDmLyYw5FtKsalBUeOg==
 
-"@ng-select/ng-select@^3.7.3":
-  version "3.7.3"
-  resolved "https://registry.yarnpkg.com/@ng-select/ng-select/-/ng-select-3.7.3.tgz#317fbf94211fb2044f6ab233795cf1cbab4b44a3"
-  integrity sha512-Duw5t0b9Jup/tVEoDHLm+UhGv5RnwQ7pQorCAQc4LZR35oOZFjec8FrEGGtgVAGtwaQAYyd7PSMk3nEsWPg6AQ==
-  dependencies:
-    tslib "^1.9.0"
-
 "@rails/actioncable@^6.0.0":
   version "6.0.2"
   resolved "https://registry.yarnpkg.com/@rails/actioncable/-/actioncable-6.0.2.tgz#bcba9bcd6ee09a47c6628336e07399a68ca87814"
@@ -1114,6 +1107,11 @@ angular-messages@^1.7.9:
   version "1.7.9"
   resolved "https://registry.yarnpkg.com/angular-messages/-/angular-messages-1.7.9.tgz#6403b7f56df4b17b62d88762ac5e6b1702347fd2"
   integrity sha512-OdJihuO6AW+m1/r9OdW5riCwacn3dL1agQvgu6Cww3a7OARXXN0vxOpsZCNk4yg4CuD7Et3tiz4DymhvZkydvw==
+
+angular-sanitize@^1.7.9:
+  version "1.7.9"
+  resolved "https://registry.yarnpkg.com/angular-sanitize/-/angular-sanitize-1.7.9.tgz#6b4d5e826abdabd352b13a7c65c8c74daf6a7b15"
+  integrity sha512-nB/xe7JQWF9nLvhHommAICQ3eWrfRETo0EVGFESi952CDzDa+GAJ/2BFBNw44QqQPxj1Xua/uYKrbLsOGWZdbQ==
 
 angular@^1.7.9:
   version "1.7.9"
@@ -7099,6 +7097,11 @@ typedarray@^0.0.6:
   version "0.0.6"
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
   integrity sha1-hnrHTjhkGHsdPUfZlqeOxciDB3c=
+
+ui-select@^0.19.8:
+  version "0.19.8"
+  resolved "https://registry.yarnpkg.com/ui-select/-/ui-select-0.19.8.tgz#74860848a7fd8bc494d9856d2f62776ea98637c1"
+  integrity sha1-dIYISKf9i8SU2YVtL2J3bqmGN8E=
 
 unicode-canonical-property-names-ecmascript@^1.0.4:
   version "1.0.4"

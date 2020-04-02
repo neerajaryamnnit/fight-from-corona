@@ -3,7 +3,6 @@
   "private": true,
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.13.0",
-    "@ng-select/ng-select": "^3.7.3",
     "@rails/actioncable": "^6.0.0",
     "@rails/activestorage": "^6.0.0",
     "@rails/ujs": "^6.0.0",
@@ -13,10 +12,12 @@
     "angular-aria": "^1.7.9",
     "angular-material": "^1.1.21",
     "angular-messages": "^1.7.9",
+    "angular-sanitize": "^1.7.9",
     "bootstrap": "^4.4.1",
     "jquery": "^3.4.1",
     "popper.js": "^1.16.1",
-    "turbolinks": "^5.2.0"
+    "turbolinks": "^5.2.0",
+    "ui-select": "^0.19.8"
   },
   "version": "0.1.0",
   "devDependencies": {

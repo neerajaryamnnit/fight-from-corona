@@ -1,6 +1,6 @@
 angular.module("controller.issue", [])
     .factory('IssueService', ["$http", "$q", "$location", function ($http, $q, $location) {
-        var baseUrl = $location.$$absUrl.replace($location.$$url, '');
+        var baseUrl = $location.$$url;
         return {
             categories: function () {
                 let deferred = $q.defer();
@@ -32,8 +32,17 @@ angular.module("controller.issue", [])
     }])
     .controller("issueController", ["$scope", "IssueService", function ($scope, IssueService) {
 
-        $scope.categories = [];
+        $scope.option_categories = [];
         $scope.sub_categories = [];
+        $scope.selection = {
+        };
+        $scope.itemArray = [
+            {id: 1, name: 'first'},
+            {id: 2, name: 'second'},
+            {id: 3, name: 'third'},
+            {id: 4, name: 'fourth'},
+            {id: 5, name: 'fifth'},
+        ];
 
         $scope.category_select = function(category ){
             IssueService.sub_categories(category.id).then((data) => {
@@ -45,12 +54,12 @@ angular.module("controller.issue", [])
 
         $scope.init = function () {
             IssueService.categories().then((data) => {
-                $scope.categories = data
+                $scope.option_categories = data.data;
+                console.log($scope.option_categories);
             },(error) => {
                 console.log(error)
             })
         };
-
         $scope.init();
     }
     ]);

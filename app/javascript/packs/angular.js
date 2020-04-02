@@ -3,5 +3,6 @@ angular.module("FightWithCoronaApp", [
     "controller.issue",
     "ngMaterial",
     "ngMessages",
-    "ngSelect"
+    "ngSanitize",
+    "ui.select",
 ]);

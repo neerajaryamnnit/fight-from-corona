@@ -16,7 +16,8 @@ require("angular-material")
 require("./controller/login.js");
 require("./controller/issue_controller.js");
 require("./angular.js");
-require("@ng-select/ng-select");
+require("ui-select");
+require("angular-sanitize");
 
 
 
