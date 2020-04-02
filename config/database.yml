@@ -21,5 +21,6 @@ test:
   database: db/test.sqlite3
 
 production:
-  <<: *default
-  database: db/production.sqlite3
+  adapter: pg
+  timeout: 5000
+  database: <%= ENV["DATABASE_UR"] %>
