@@ -23,4 +23,4 @@ test:
 production:
   adapter: pg
   timeout: 5000
-  database: <%= ENV["DATABASE_UR"] %>
+  database: <%= ENV["DATABASE_URL"] %>
