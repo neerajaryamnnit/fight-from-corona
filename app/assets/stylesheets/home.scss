@@ -1,0 +1,63 @@
+// Place all the styles related to the Home controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: https://sass-lang.com/
+.cases-heading {
+  font-size: 20px;
+  font-weight: 400;
+}
+.cases-value {
+  font-size: 22px;
+  font-weight: 600;
+}
+.map-stats {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 5rem;
+  position: relative;
+}
+.stats{
+  padding: .5rem;
+  border-radius: 5px;
+  margin-left: .25rem;
+  margin-right: .25rem;
+  margin-bottom: .5rem;
+  width: 100%;
+}
+.total{
+  background: rgba(255,7,58,.12549);
+  color: #ff073a;
+}
+.active{
+  background: rgba(0,123,255,.12549);
+  color: #007bff;
+}
+.recover{
+  background: rgba(40,167,69,.12549);
+  color: #28a745;
+}
+.deceased{
+  background: rgba(108,117,125,.12549);
+  color: #6c757d;
+}
+
+
+.inputdemoIcons {
+  /*
+.right-icon {
+  position: absolute;
+  top: 4px;
+  right: 2px;
+  left: auto;
+  margin-top: 0;
+}
+*/ }
+.inputdemoIcons .inputIconDemo {
+  min-height: 48px; }
+.inputdemoIcons md-input-container:not(.md-input-invalid) > md-icon.email {
+  color: green; }
+.inputdemoIcons md-input-container:not(.md-input-invalid) > md-icon.name {
+  color: dodgerblue; }
+.inputdemoIcons md-input-container.md-input-invalid > md-icon.email,
+.inputdemoIcons md-input-container.md-input-invalid > md-icon.name {
+  color: red; }
