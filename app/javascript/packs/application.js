@@ -14,10 +14,11 @@ require("angular-aria")
 require("angular-messages")
 require("angular-material")
 require("./controller/login.js");
-require("./controller/issue_controller.js");
-require("./angular.js");
-require("ui-select");
 require("angular-sanitize");
+require("ui-select");
+require("./angular.js");
+require("./controller/issue_controller.js");
+
 
 
 

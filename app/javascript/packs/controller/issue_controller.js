@@ -11,7 +11,7 @@ angular.module("controller.issue", [])
                 }).then(function (data) {
                     deferred.resolve(data.data);
                 }, function (data) {
-                    deferred.resolve(data);
+                    deferred.reject(data);
                 });
                 return deferred.promise;
             },
@@ -30,23 +30,20 @@ angular.module("controller.issue", [])
             },
         }
     }])
-    .controller("issueController", ["$scope", "IssueService", function ($scope, IssueService) {
+    .controller("issueController", ["$scope", "$sce", "IssueService", function ($scope,$sce, IssueService) {
 
+        $scope.trustAsHtml = function (value) {
+            return $sce.trustAsHtml(value);
+        };
         $scope.option_categories = [];
         $scope.sub_categories = [];
         $scope.selection = {
         };
-        $scope.itemArray = [
-            {id: 1, name: 'first'},
-            {id: 2, name: 'second'},
-            {id: 3, name: 'third'},
-            {id: 4, name: 'fourth'},
-            {id: 5, name: 'fifth'},
-        ];
 
-        $scope.category_select = function(category ){
-            IssueService.sub_categories(category.id).then((data) => {
-                $scope.sub_categories = data;
+        $scope.onCategoryChange = function() {
+            console.log($scope.selection.category);
+            IssueService.sub_categories($scope.selection.category).then((data) => {
+                $scope.sub_categories = data.data;
             }, (error) => {
                 console.log(error)
             })
