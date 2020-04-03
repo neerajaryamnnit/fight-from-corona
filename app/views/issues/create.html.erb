@@ -4,6 +4,9 @@
     <div class="d-flex flex-column">
       <div class="form-row">
         <div class="col-md-9 mb-3">
+          <button class="btn btn-primary" ng-click="getLocation()">Show my location</button><br/>
+        </div>
+        <div class="col-md-9 mb-3">
           <label >Category</label>
           <select
               ng-model="selection.category"
@@ -63,6 +66,9 @@
           <span ng-if="!loading" role="status" aria-hidden="true" ng-cloak>Submit Your Issue</span>
         </button>
       </form>
+
+      <p id = "status"></p>
+      <a id = "map-link" target="_blank"></a>
     </div>
 
   </div>

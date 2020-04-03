@@ -17,7 +17,7 @@ angular.module("controller.issue", [])
             },
             sub_categories: function (id) {
                 let deferred = $q.defer();
-                let url = baseUrl + '/issues/sub_categories?category_id='+ id;
+                let url = baseUrl + '/issues/sub_categories?category_id=' + id;
                 $http({
                     url: url,
                     method: "GET"
@@ -44,7 +44,7 @@ angular.module("controller.issue", [])
             },
         }
     }])
-    .controller("issueController", ["$scope", "toaster", "IssueService", function ($scope, toaster,  IssueService) {
+    .controller("issueController", ["$scope", "toaster", "IssueService", function ($scope, toaster, IssueService) {
 
         $scope.trustAsHtml = function (value) {
             return $sce.trustAsHtml(value);
@@ -54,10 +54,9 @@ angular.module("controller.issue", [])
         $scope.loading = false;
         $scope.tryAgain = false;
         $scope.sub_categories = [];
-        $scope.selection = {
-        };
+        $scope.selection = {};
 
-        $scope.onCategoryChange = function() {
+        $scope.onCategoryChange = function () {
             console.log($scope.selection.category);
             IssueService.sub_categories($scope.selection.category).then((data) => {
                 $scope.sub_categories = data.data;
@@ -69,21 +68,21 @@ angular.module("controller.issue", [])
         $scope.init = function () {
             IssueService.categories().then((data) => {
                 $scope.option_categories = data.data;
-            },(error) => {
+            }, (error) => {
                 console.log(error)
             })
         };
-        $scope.createIssue = function(){
+        $scope.createIssue = function () {
 
-            if ($scope.selection.category == null){
+            if ($scope.selection.category == null) {
                 toaster.error({title: "Missing Option", body: "Looks like you have not selected the category"});
                 return;
             }
-            if (!$scope.selection.name || $scope.selection.name.length === 0 ){
+            if (!$scope.selection.name || $scope.selection.name.length === 0) {
                 toaster.error({title: "Missing Name", body: "Please tell us your issue"});
                 return;
             }
-            if ($scope.selection.sub_category == null){
+            if ($scope.selection.sub_category == null) {
                 toaster.error({title: "Missing Option", body: "Looks like you have not selected the sub category"});
                 return;
             }
@@ -94,7 +93,7 @@ angular.module("controller.issue", [])
                 IssueService.createIssue($scope.selection).then((data) => {
                     $scope.loading = false;
                     window.location.href = '/issues/list';
-                },(error) => {
+                }, (error) => {
                     $scope.loading = false;
                     console.log(error)
                 })
@@ -102,5 +101,33 @@ angular.module("controller.issue", [])
 
         };
         $scope.init();
+
+        $scope.getLocation = function () {
+            const status = document.querySelector('#status');
+            const mapLink = document.querySelector('#map-link');
+
+            mapLink.href = '';
+            mapLink.textContent = '';
+
+            function success(position) {
+                const latitude = position.coords.latitude;
+                const longitude = position.coords.longitude;
+
+                status.textContent = '';
+                mapLink.href = `https://www.openstreetmap.org/#map=18/${latitude}/${longitude}`;
+                mapLink.textContent = `Latitude: ${latitude} °, Longitude: ${longitude} °`;
+            }
+
+            function error() {
+                status.textContent = 'Unable to retrieve your location';
+            }
+
+            if (!navigator.geolocation) {
+                status.textContent = 'Geolocation is not supported by your browser';
+            } else {
+                status.textContent = 'Locating…';
+                navigator.geolocation.getCurrentPosition(success, error);
+            }
+        }
     }
     ]);
