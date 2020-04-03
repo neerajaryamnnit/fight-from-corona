@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   mount Blazer::Engine, at: "blazer"
   root to: 'home#index'
   post "send_otp" => "users#send_otp"
+  get "send_otp" => "users#send_otp"
   post "verify_otp" => "users#verify_otp"
 
   get "issues/list"

@@ -1,5 +1,9 @@
 class UsersController < ApplicationController
   def send_otp
+    if request.method == "GET"
+      redirect_to root_path
+      return
+    end
 
     if !params[:name].present? || !params[:name].strip.present?
       redirect_to root_path, flash: { error: "Please provide your name." }
@@ -14,7 +18,7 @@ class UsersController < ApplicationController
     email = phone+ "@fightfromcorona.com"
     user = User.where(email: email).first
     if user.nil?
-      user = User.create(email: email, password: "sdkjfsn9320923inde0293029")
+      user = User.create(email: email)
     end
     user.name = name
     user.mobile = phone
