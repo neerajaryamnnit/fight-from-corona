@@ -1,10 +1,10 @@
 class UsersController < ApplicationController
   def send_otp
+
     if request.method == "GET"
       redirect_to root_path
       return
     end
-
     if !params[:name].present? || !params[:name].strip.present?
       redirect_to root_path, flash: { error: "Please provide your name." }
       return
