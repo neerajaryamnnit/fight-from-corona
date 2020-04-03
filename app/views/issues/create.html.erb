@@ -3,7 +3,9 @@
 
     <div class="d-flex flex-column">
       <div class="form-row">
-        <p id = "status"></p>
+        <div class="col-md-9">
+          <p id = "status"></p>
+        </div>
         <div ng-if="!showPermissionRequest" class="col-md-9 mb-3">
           <p >Your exact location will enable to help you better
             <button class="btn btn-primary btn-sm" ng-click="getLocation()">Allow</button></p><br/>

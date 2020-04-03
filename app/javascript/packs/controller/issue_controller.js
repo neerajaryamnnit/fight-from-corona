@@ -70,6 +70,9 @@ angular.module("controller.issue", [])
             $scope.getCoords().then((status) => {
                 console.log("Permission status");
                 console.log(status);
+                if (!status){
+                    status.textContent = 'Your exact location will enable to help you better. Please check your browser location setting.';
+                }
                 $scope.showPermissionRequest = status;
             }, (error)=> {
                 console.log(error)
@@ -129,7 +132,7 @@ angular.module("controller.issue", [])
             }
 
             function error() {
-                $scope.showPermissionRequest = false;
+                $scope.showPermissionRequest = true;
                 status.textContent = 'Your exact location will enable to help you better. Please check your browser location setting.';
             }
 
