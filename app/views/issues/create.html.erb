@@ -1,5 +1,6 @@
 <section class="container" ng-controller="issueController">
   <div class="d-flex justify-content-center">
+
     <div class="d-flex flex-column">
       <div class="form-row">
         <div class="col-md-9 mb-3">
@@ -62,12 +63,12 @@
             </div>
           </div>
         </div>
-        <button class="btn btn-primary" type="button" ng-click="createIssue()" >
-          <div ng-if="loading">
+        <button class="btn btn-primary" type="button" ng-click="createIssue()">
+          <div ng-if="loading" class="ng-cloak">
             <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
             <span role="status" aria-hidden="true">Creating Issue...</span>
           </div>
-          <span ng-if="!loading" role="status" aria-hidden="true">Submit Your Issue</span>
+          <span ng-if="!loading" role="status" aria-hidden="true" ng-cloak>Submit Your Issue</span>
         </button>
       </form>
     </div>

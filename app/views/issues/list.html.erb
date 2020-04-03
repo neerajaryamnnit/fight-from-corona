@@ -7,9 +7,17 @@
           My Issue list
         </div>
         <div class="d-flex">
-          <a href="create"><button type="button" class="btn btn-sm btn-outline-success"><span>+ Add</span></button></a>
+          <a href="create" target="_parent"><button type="button" class="btn btn-sm btn-outline-success"><span>+ Add</span></button></a>
         </div>
       </div>
+      <% if @issues.count == 0 %>
+        <div class="card border-secondary mb-3 mt-3" style="max-width: 18rem;">
+          <div class="card-body text-secondary">
+            <p class="card-text">You haven't added any <b>issue</b> yet. <br> Press <a href="create" target="_parent"><button type="button" class="btn btn-sm btn-outline-success"><span>+ Add</span></button></a> to add some.</p>
+          </div>
+        </div>
+      <% end %>
+
 <br>
       <% @issues.each_with_index do |issue, index| %>
         <% unless issue.resolved? %>

@@ -13,6 +13,7 @@
     "angular-material": "^1.1.21",
     "angular-messages": "^1.7.9",
     "angular-sanitize": "^1.7.9",
+    "angularjs-toaster": "^3.0.0",
     "bootstrap": "^4.4.1",
     "jquery": "^3.4.1",
     "popper.js": "^1.16.1",

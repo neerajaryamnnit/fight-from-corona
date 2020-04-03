@@ -4,7 +4,8 @@ app = angular.module("FightWithCoronaApp", [
     "ngMaterial",
     "ngMessages",
     "ngSanitize",
-    "ui.select"
+    "ui.select",
+    "toaster"
 ]);
 app.filter("optionFilter", function () {
     return function(items, props) {

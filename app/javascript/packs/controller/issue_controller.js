@@ -44,7 +44,7 @@ angular.module("controller.issue", [])
             },
         }
     }])
-    .controller("issueController", ["$scope", "$sce", "IssueService", function ($scope,$sce, IssueService) {
+    .controller("issueController", ["$scope", "toaster", "IssueService", function ($scope, toaster,  IssueService) {
 
         $scope.trustAsHtml = function (value) {
             return $sce.trustAsHtml(value);
@@ -69,12 +69,25 @@ angular.module("controller.issue", [])
         $scope.init = function () {
             IssueService.categories().then((data) => {
                 $scope.option_categories = data.data;
-                console.log($scope.option_categories);
             },(error) => {
                 console.log(error)
             })
         };
         $scope.createIssue = function(){
+
+            if ($scope.selection.category == null){
+                toaster.error({title: "Missing Option", body: "Looks like you have not selected the category"});
+                return;
+            }
+            if (!$scope.selection.name || $scope.selection.name.length === 0 ){
+                toaster.error({title: "Missing Name", body: "Please tell us your issue"});
+                return;
+            }
+            if ($scope.selection.sub_category == null){
+                toaster.error({title: "Missing Option", body: "Looks like you have not selected the sub category"});
+                return;
+            }
+
             $scope.loading = true;
             $scope.tryAgain = false;
             setTimeout(function () {
