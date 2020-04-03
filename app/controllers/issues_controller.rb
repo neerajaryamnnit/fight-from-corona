@@ -21,6 +21,8 @@ class IssuesController < ApplicationController
       issue.address = params[:address] if params[:address].present?
       issue.pincode = params[:pincode] if params[:pincode].present?
       issue.city = params[:city] if params[:city].present?
+      issue.lat = params[:latitude] if params[:latitude].present?
+      issue.long = params[:longitude] if params[:longitude].present?
       issue.user_id = current_user.id
       issue.reported_at = DateTime.now
       if issue.save
