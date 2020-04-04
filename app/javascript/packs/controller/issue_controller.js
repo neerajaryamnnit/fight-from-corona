@@ -38,7 +38,7 @@ angular.module("controller.issue", [])
                 }).then(function (data) {
                     deferred.resolve(data.data);
                 }, function (data) {
-                    deferred.resolve(data);
+                    deferred.reject(data);
                 });
                 return deferred.promise;
             },
@@ -101,15 +101,15 @@ angular.module("controller.issue", [])
 
             $scope.loading = true;
             $scope.tryAgain = false;
-            setTimeout(function () {
-                IssueService.createIssue($scope.selection).then((data) => {
-                    $scope.loading = false;
-                    window.location.href = '/issues/list';
-                }, (error) => {
-                    $scope.loading = false;
-                    console.log(error)
-                })
-            }, 500);
+            IssueService.createIssue($scope.selection).then((data) => {
+                $scope.loading = false;
+                toaster.success({title: "Congratulations!", body: "We have received your help request and will be shared with people near you."});
+                setTimeout(() => {window.location.href = '/issues/list'}, 2000);
+            }, (error) => {
+                $scope.loading = false;
+                toaster.error({title: "Oops!", body: "We are not able to submit your request this time please see the error:" + error.error});
+                console.log(error)
+            })
 
         };
         $scope.getLocation = function () {
