@@ -7,6 +7,26 @@ app = angular.module("FightWithCoronaApp", [
     "ui.select",
     "toaster"
 ]);
+app.factory("BaseService", [ "$http", "toaster", function ($http, toaster) {
+
+    return {
+        success: function(data) {
+            toaster.success({title: data.title, body: data.message})
+        },
+        error: function(data) {
+            toaster.error({title: data.title, body: data.message})
+        },
+        warning: function(data) {
+            toaster.warning({title: data.title, body: data.message})
+        },
+        info: function(data) {
+            toaster.info({title: data.title, body: data.message})
+        },
+        errorMessage: "We not able to service your request this time Error: "
+    }
+
+}
+]);
 app.filter("optionFilter", function () {
     return function(items, props) {
         var out = [];

@@ -44,7 +44,7 @@ angular.module("controller.issue", [])
             },
             removeIssue: function (data) {
                 let deferred = $q.defer();
-                let url = baseUrl + '/issues/remove';
+                let url = baseUrl + '/issues/resolve';
                 $http({
                     data: data,
                     url: url,
@@ -52,7 +52,7 @@ angular.module("controller.issue", [])
                 }).then(function (data) {
                     deferred.resolve(data.data);
                 }, function (data) {
-                    deferred.reject(data);
+                    deferred.reject(data.data);
                 });
                 return deferred.promise;
             },
@@ -174,17 +174,19 @@ angular.module("controller.issue", [])
         $scope.init();
     }
     ])
-    .controller("issueListController", ["$scope", "toaster", "IssueService", function ($scope, toaster, IssueService) {
-        $scope.loading = false;
-
+    .controller("issueListController", ["$scope", "toaster", "IssueService", "BaseService", function ($scope, toaster, IssueService,BaseService) {
+        $scope.loading = [];
         $scope.removeIssue = function(issue_id) {
-            $scope.loading = true;
-            console.log(issue_id);
-            IssueService.removeIssue().then((data)=> {
-                $scope.loading = false;
+            $scope.loading[issue_id] = true;
+            let data = {id: issue_id};
+            IssueService.removeIssue(data).then((result)=> {
+                $scope.loading[issue_id] = false;
+                BaseService.success(result);
+                window.location.href = "/issues/list";
             }, (error)=> {
-                $scope.loading = false;
-                toaster.error({title: "Oops!", body: ""})
+                $scope.loading[issue_id] = false;
+                console.log(error)
+                BaseService.error(error);
             });
         };
 }]);

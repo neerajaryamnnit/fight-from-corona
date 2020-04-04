@@ -29,13 +29,16 @@
             </div>
             <div class="card-footer bg-transparent border-secondary">
               <div class="row">
-
-
               <div class="col-6" >
                 <small class="text-muted"><%= time_ago_in_words(issue.created_at) %> ago</small>
               </div>
               <div class="col-6" style="text-align: end">
-                <small class="pull-right"><button class="btn btn-sm btn-success" ng-click="removeIssue(<%= issue.id %>)">Remove</button></small>
+                <button class="btn btn-sm btn-success" ng-click="removeIssue(<%= issue.id %>)">
+                  <div ng-if="loading[<%= issue.id %>]" class="ng-cloak">
+                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                  </div>
+                  <span ng-if="!loading[<%= issue.id %>]" role="status" aria-hidden="true" ng-cloak>Resolve</span>
+                </button>
               </div>
               </div>
 
