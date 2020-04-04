@@ -3,8 +3,7 @@ class IssuesController < ApplicationController
   skip_before_action :verify_authenticity_token
 
   def list
-    @issues = Issue.where(user_id: current_user.id).order("created_at desc")
-
+    @issues = Issue.where(user_id: current_user.id, aasm_state: "open").order("created_at desc")
   end
 
   def create
@@ -24,7 +23,6 @@ class IssuesController < ApplicationController
       issue.lat = params[:latitude] if params[:latitude].present?
       issue.long = params[:longitude] if params[:longitude].present?
       issue.user_id = current_user.id
-      issue.reported_at = DateTime.now
       if issue.save
         render json: {message: "Issue saved successfully", data: issue}, status: 200
       else

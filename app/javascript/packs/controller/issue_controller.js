@@ -42,6 +42,20 @@ angular.module("controller.issue", [])
                 });
                 return deferred.promise;
             },
+            removeIssue: function (data) {
+                let deferred = $q.defer();
+                let url = baseUrl + '/issues/remove';
+                $http({
+                    data: data,
+                    url: url,
+                    method: "POST"
+                }).then(function (data) {
+                    deferred.resolve(data.data);
+                }, function (data) {
+                    deferred.reject(data);
+                });
+                return deferred.promise;
+            },
         }
     }])
     .controller("issueController", ["$scope", "toaster", "IssueService", function ($scope, toaster, IssueService) {
@@ -159,4 +173,18 @@ angular.module("controller.issue", [])
         };
         $scope.init();
     }
-    ]);
+    ])
+    .controller("issueListController", ["$scope", "toaster", "IssueService", function ($scope, toaster, IssueService) {
+        $scope.loading = false;
+
+        $scope.removeIssue = function(issue_id) {
+            $scope.loading = true;
+            console.log(issue_id);
+            IssueService.removeIssue().then((data)=> {
+                $scope.loading = false;
+            }, (error)=> {
+                $scope.loading = false;
+                toaster.error({title: "Oops!", body: ""})
+            });
+        };
+}]);
