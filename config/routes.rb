@@ -12,4 +12,5 @@ Rails.application.routes.draw do
   post "issues/create"
   get "issues/categories"
   get "issues/sub_categories"
+  get "issues/search_issues"
 end
