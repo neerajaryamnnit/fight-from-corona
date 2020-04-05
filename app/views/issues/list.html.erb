@@ -35,7 +35,7 @@
             <div class="card-footer bg-transparent border-secondary">
               <div class="row">
                 <div class="col-6" >
-                  <small class="text-muted"><%= issue.resolved_by.name %> is helping you on this issue</small>
+                  <small class="text-muted"><b><%= issue.resolved_by.name %></b> is helping you on this issue</small>
                 </div>
                 <div class="col-6" style="text-align: end">
                   <a href="tel:<% issue.resolved_by.mobile %>"><button class="btn btn-sm btn-success" ng-click="callPressed(<%= issue.id %>)">CONNECT

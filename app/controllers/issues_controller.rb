@@ -118,7 +118,8 @@ class IssuesController < ApplicationController
   # Returns data: [{'issue': issue_1, 'distance': 2}, {'issue': issue_2, 'distance': 2}]
   def search_issues
     if params[:latitude].blank? || params[:longitude].blank?
-      render json: { message: 'Missing Value!', error: 'Please enter your location' }, status: 422
+      render json: { title: 'Missing Value!', message: 'Please enter your location' } , status: 422
+      return
     end
     if params[:radius].blank? || params[:radius] > 100
       # Default search radius 10 KM.
@@ -129,5 +130,12 @@ class IssuesController < ApplicationController
       message: "Nearby Issues",
       data: sorted_issues
     }, status: :ok
+  end
+
+  def want_to_help
+    @issues = Issue.includes(:issue_category, :issue_sub_category, :user)
+                  .where.not(user_id: current_user.id).where.not(issue_category_id: IssueCategory.suspected_patient)
+                  .where( aasm_state: ["open", "helping"])
+                  .order("created_at desc")
   end
 end
