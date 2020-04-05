@@ -3,7 +3,7 @@ class IssuesController < ApplicationController
   skip_before_action :verify_authenticity_token
 
   def list
-    @issues = Issue.where(user_id: current_user.id, aasm_state: "open").order("created_at desc")
+    @issues = Issue.where(user_id: current_user.id, aasm_state: ["open", "helping"]).order("created_at desc")
   end
 
   def create

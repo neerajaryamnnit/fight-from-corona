@@ -1,9 +1,9 @@
 class Issue < ApplicationRecord
   include AASM
   belongs_to :issue_category
-  belongs_to :issue_sub_category
+  belongs_to :issue_sub_category, optional: true
   belongs_to :user
-  belongs_to :resolved_by, class_name: "User"
+  belongs_to :resolved_by, class_name: "User", optional: true
   aasm do
     state :open, initial: true
     state :helping

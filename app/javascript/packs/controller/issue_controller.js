@@ -217,6 +217,20 @@ angular.module("controller.issue", [])
                 BaseService.error(error);
             });
         };
+
+        $scope.callPressed = function ( issue_id) {
+
+            let data = {
+                issue_id: issue_id
+            };
+            console.log(data);
+            IssueService.callPressed(data).then((result)=>{
+                console.log(result);
+            }, (error) => {
+                BaseService.error(error)
+            })
+
+        };
 }]).controller("wantToHelpController", ["$scope", "toaster", "IssueService", "BaseService", function ($scope, toaster, IssueService,BaseService) {
     $scope.loading = [];
     $scope.issueList = [];
