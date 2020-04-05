@@ -1,7 +1,15 @@
 <section class="container" ng-controller="issueController">
   <div class="d-flex justify-content-center">
+
     <div class="d-flex flex-column">
       <div class="form-row">
+        <div class="col-md-9">
+          <p id = "status"></p>
+        </div>
+        <div ng-if="!showPermissionRequest" class="col-md-9 mb-3">
+          <p >Your exact location will enable to help you better
+            <button class="btn btn-primary btn-sm" ng-click="getLocation()">Allow</button></p><br/>
+        </div>
         <div class="col-md-9 mb-3">
           <label >Category</label>
           <select
@@ -46,15 +54,7 @@
           </div>
         </div>
         <div class="form-row">
-          <div class="col-md-6 mb-3">
-            <label for="validationTooltip04">City</label>
-            <input type="text"  ng-model="selection.city" class="form-control" name="city" placeholder="City" required>
-            <div class="invalid-tooltip">
-              Please provide a valid city.
-            </div>
-          </div>
-
-          <div class="col-md-3 mb-3">
+          <div class="col-md-9 mb-3">
             <label for="validationTooltip05">Pincode</label>
             <input type="text" ng-model="selection.pincode" class="form-control" name="pincode" placeholder="Pincode" required>
             <div class="invalid-tooltip">
@@ -62,12 +62,12 @@
             </div>
           </div>
         </div>
-        <button class="btn btn-primary" type="button" ng-click="createIssue()" >
-          <div ng-if="loading">
+        <button class="btn btn-primary" type="button" ng-click="createIssue()">
+          <div ng-if="loading" class="ng-cloak">
             <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
             <span role="status" aria-hidden="true">Creating Issue...</span>
           </div>
-          <span ng-if="!loading" role="status" aria-hidden="true">Submit Your Issue</span>
+          <span ng-if="!loading" role="status" aria-hidden="true" ng-cloak>Submit Your Issue</span>
         </button>
       </form>
     </div>

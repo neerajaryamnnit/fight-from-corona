@@ -1,18 +1,21 @@
-<section ng-app="FightWithCoronaApp" ng-controller="loginController" ng-init="init('
-  <% user_signed_in? %>')">
+<section ng-app="FightWithCoronaApp" ng-controller="loginController" ng-init="init('<%= user_signed_in? %>')">
   <div class="container-fluid">
-<!--    <div layout="row" layout-align="center">-->
-<!--      <b><label class="md-label" style="font-size: 20px">Fight with Corona</label></b>-->
-<!--    </div>-->
-<!--    <div layout="row" layout-align="center center">-->
+    <!--    <div layout="row" layout-align="center">-->
+    <!--      <b><label class="md-label" style="font-size: 20px">Fight with Corona</label></b>-->
+    <!--    </div>-->
+    <div layout="row" layout-align="center center">
       <%#= image_tag("india", :alt => "rss feed", size: "48x48") %>
-<!--      <h3>&nbsp;India</h3>-->
-<!--    </div>-->
+      <h3>Corona Stats</h3>
+    </div>
     <% if user_signed_in? %>
       <div layout="row" layout-align="center center">
         <h3>&nbsp;Welcome <%= current_user.name %></h3>
       </div>
     <% end %>
+    <div layout="row" layout-align="center center">
+      <%#= image_tag("india", :alt => "rss feed", size: "48x48") %>
+      <h4>Corona Stats</h4>
+    </div>
     <div layout="row" layout-align="center center">
       <div layout="column" layout-align="center">
         <div layout="row">
@@ -41,55 +44,54 @@
         </div>
         <% if user_signed_in? %>
           <div layout="row" layout-align="center">
-            <a flex="50" href="issues/list"><md-button  class="md-raised md-primary">Ask For Help</md-button></a>
-            <md-button flex="50" class="md-raised md-primary">Want to Help</md-button>
+            <a flex="50" href="issues/list" target="_parent">
+              <md-button class="md-raised md-primary">Ask For Help</md-button>
+            </a>
+            <a flex="50" href="issues/want_to_help" target="_parent" >
+              <md-button class="md-raised md-primary">Want to Help</md-button>
+            </a>
           </div>
         <% else %>
           <div layout="row" layout-align="center">
-            <md-button class="md-raised md-primary">Help Someone</md-button>
+            <span>Login to ask for help or start helping someone else</span>
           </div>
           <p id="error"><%= flash[:error] %></p>
           <div layout="column" layout-align="center">
             <% unless @show_otp %>
-              <md-content>
-                <form method="post" name="loginForm" novalidate action="send_otp" ng-submit="loginform.$valid && formValidate()">
-                  <%= csrf_meta_tag %>
-                  <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
-                  <md-input-container class="md-icon-float md-block">
-                    <label>Name</label>
-                    <input name="name" maxlength="30" style="height: auto" ng-model="user.name" type="text" ng-keyup="lengthCount(this, 'name')">
-                    <div class="md-errors-spacer">
-                      <div class="md-char-counter">{{ currentLength['name'] + "/30 " }}</div>
-                    </div>
-                  </md-input-container>
-                  <md-input-container class="md-block">
-                    <input name="phone" maxlength="10" style="height: auto" ng-model="user.phone" type="text" placeholder="Phone Number" ng-keyup="lengthCount(this, 'phone')" aria-label="Phone Number">
-                    <div class="md-errors-spacer">
-                      <div class="md-char-counter">{{ currentLength['phone'] + "/10 " }}</div>
-                    </div>
-                  </md-input-container>
-                  <button type="submit" class="md-raised md-primary">Sent OTP</button>
-                </form>
-              </md-content>
+
+              <form class="form-inline" method="post" name="loginForm" novalidate action="send_otp" ng-submit="loginform.$valid && formValidate()">
+                <%= csrf_meta_tag %>
+                <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+
+                <label>Name</label>
+                <input type="text" name="name" class="form-control mb-2 mr-sm-2" id="inlineFormInputName2" placeholder="Please enter your name" required>
+                <!--                    <input name="name" maxlength="30" style="height: auto" ng-model="user.name" type="text" ng-keyup="lengthCount(this, 'name')">-->
+
+                <label class="sr-only" for="inlineFormInputGroupUsername2">Phone Number</label>
+                <div class="input-group mb-2 mr-sm-2">
+                  <div class="input-group-prepend">
+                    <div class="input-group-text">Mob</div>
+                  </div>
+                  <input class="form-control" name="phone" maxlength="10" style="height: auto" type="text" placeholder="Phone Number" ng-keyup="lengthCount(this, 'phone')" aria-label="Phone Number" required>
+                </div>
+                <button type="submit" class="btn btn-primary mb-2">Sent OTP</button>
+              </form>
+
             <% end %>
             <% if @show_otp %>
-              <md-content>
-                <form method="post" novalidate action="verify_otp" ng-submit="loginform.$valid && formValidate()">
-                  <%= csrf_meta_tag %>
-                  <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
-                  <input type="hidden" name="phone" hidden value="<%= @phone %>">
-                  <input type="hidden" name="token" hidden value="<%= @token %>">
-                  <md-input-container class="md-icon-float md-block">
-                    <br>
-                    <label>Enter OTP</label>
-                    <input name="otp" maxlength="6" style="height: auto" ng-model="user.otp" type="text" ng-keyup="lengthCount(this, 'otp')">
-                    <div class="md-errors-spacer">
-                      <div class="md-char-counter">{{ currentLength['otp'] + "/6 " }}</div>
-                    </div>
-                  </md-input-container>
-                  <button type="submit" class="md-raised md-primary">Verify</button>
-                </form>
-              </md-content>
+
+              <form class="form-inline" method="post" novalidate action="verify_otp" ng-submit="loginform.$valid && formValidate()">
+                <%= csrf_meta_tag %>
+                <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+                <input type="hidden" name="phone" hidden value="<%= @phone %>">
+                <input type="hidden" name="token" hidden value="<%= @token %>">
+                <div class="col-md-3 mb-3">
+                  <label for="validationTooltip05">Please enter your OTP</label>
+                  <input class="form-control" name="otp" maxlength="6" style="height: auto" ng-model="user.otp" type="text" ng-keyup="lengthCount(this, 'otp')">
+                </div>
+                <button type="submit" class="btn btn-primary mb-2 ml-3">Verify</button>
+              </form>
+
             <% end %>
 
           </div>
