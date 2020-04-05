@@ -62,4 +62,51 @@ class IssuesController < ApplicationController
       render json: {title: "Oops!", message: "It seems your issue is already resolved"}, status: 400
     end
   end
+
+  def want_to_help
+    @issues = Issue.includes(:issue_category, :issue_sub_category, :user)
+                  .where.not(user_id: current_user.id)
+                  .where( aasm_state: ["open", "helping"]).order("created_at desc")
+  end
+
+  def call_pressed
+    unless params[:issue_id].present?
+      render json: {title: "Oops!", message: "Please provide the issue id which you want to call"}, status: 400
+      return
+    end
+
+    issue_activity = IssueActivity.new
+    issue_activity.name = "Call button clicked"
+    issue_activity.issue_id = params[:issue_id]
+    issue_activity.creator_id = current_user.id
+    issue_activity.save!
+    render json: {title: "Done", message: "Issue activity created"}, status: 200
+  end
+
+  def issue_help
+    unless params[:issue_id].present?
+      render json: {title: "Oops!", message: "Please provide the issue id which you want to call"}, status: 400
+      return
+    end
+    unless Issue.find_by_id(params[:issue_id]).present?
+      render json: {title: "Sorry!", message: "We are not able to find given issue id. Please check again"}, status: 400
+      return
+    end
+
+    issue_activity = IssueActivity.new
+    issue_activity.name = "Help clicked"
+    issue_activity.issue_id = params[:issue_id]
+    issue_activity.creator_id = current_user.id
+    issue_activity.save!
+
+    issue = Issue.find(params[:issue_id])
+    if issue.may_mark_helping?
+      issue.resolved_by_id = current_user.id
+      issue.save!
+      issue.mark_helping!
+      render json: {title: "Thanks!", message: "We are happy that you are helping someone"}, status: 200
+    else
+      render json: {title: "Sorry!", message: "You can not help on this issue its already assigned"}, status: 400
+    end
+  end
 end

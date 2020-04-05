@@ -56,6 +56,34 @@ angular.module("controller.issue", [])
                 });
                 return deferred.promise;
             },
+            callPressed: function (data) {
+                let deferred = $q.defer();
+                let url = baseUrl + '/issues/call_pressed';
+                $http({
+                    data: data,
+                    url: url,
+                    method: "POST"
+                }).then(function (data) {
+                    deferred.resolve(data.data);
+                }, function (data) {
+                    deferred.reject(data.data);
+                });
+                return deferred.promise;
+            },
+            wantToHelp: function (data) {
+                let deferred = $q.defer();
+                let url = baseUrl + '/issues/issue_help';
+                $http({
+                    data: data,
+                    url: url,
+                    method: "POST"
+                }).then(function (data) {
+                    deferred.resolve(data.data);
+                }, function (data) {
+                    deferred.reject(data.data);
+                });
+                return deferred.promise;
+            },
         }
     }])
     .controller("issueController", ["$scope", "toaster", "IssueService", function ($scope, toaster, IssueService) {
@@ -182,11 +210,44 @@ angular.module("controller.issue", [])
             IssueService.removeIssue(data).then((result)=> {
                 $scope.loading[issue_id] = false;
                 BaseService.success(result);
-                window.location.href = "/issues/list";
+                window.location.href = "/issues/list";1
             }, (error)=> {
                 $scope.loading[issue_id] = false;
-                console.log(error)
+                console.log(error);
                 BaseService.error(error);
             });
         };
+}]).controller("wantToHelpController", ["$scope", "toaster", "IssueService", "BaseService", function ($scope, toaster, IssueService,BaseService) {
+    $scope.loading = [];
+    $scope.issueList = [];
+
+    $scope.callPressed = function ( issue_id) {
+
+        let data = {
+            issue_id: issue_id
+        };
+        console.log(data);
+        IssueService.callPressed(data).then((result)=>{
+            console.log(result);
+
+        }, (error) => {
+            BaseService.error(error)
+        })
+
+    };
+
+    $scope.wantToHelp = function ( issue_id) {
+        let data = {
+            issue_id: issue_id
+        };
+        console.log(data);
+        IssueService.wantToHelp(data).then((result)=>{
+            console.log(result);
+            BaseService.success(result);
+            window.location.reload();
+        }, (error) => {
+            BaseService.error(error)
+        })
+    }
+
 }]);

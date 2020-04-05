@@ -1,0 +1,82 @@
+<section class="container" ng-controller="wantToHelpController">
+  <div class="d-flex justify-content-center">
+
+    <div class="d-flex flex-column mt-1">
+      <div class="d-flex flex-row justify-content-between">
+        <div class="d-flex flex-column">
+          Issue request in my area
+        </div>
+
+      </div>
+      <% if @issues.count == 0 %>
+        <div class="card border-secondary mb-3 mt-3" style="max-width: 18rem;">
+          <div class="card-body text-secondary">
+            <p class="card-text">No issues are reported in your area</p>
+            <a href="javascript:history.back()" target="_parent">
+              <button class="btn btn-primary"> Back</button>
+            </a>
+          </div>
+        </div>
+      <% end %>
+      <br>
+      <% @issues.each_with_index do |issue, index| %>
+        <% unless issue.resolved? %>
+          <div class="card border-secondary mb-3" style="max-width: 18rem;">
+            <div class="card-header">
+              <div class="row">
+                <div class="col-9">
+                  <%= index + 1 %>. <%= issue.issue_sub_category.name %>
+                  <span class="badge badge-pill badge-secondary"><%= issue.issue_category.name %> </span>
+                </div>
+                <div class="col-3">
+                  <div class="row" style="text-align: end">
+                    <label style="color: #007bff" type="button" data-toggle="collapse" data-target="#multiCollapseExample<%= issue.id %>" aria-expanded="false" aria-controls="multiCollapseExample<%= issue.id %>">More</label>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+            <div class="collapse multi-collapse" id="multiCollapseExample<%= issue.id %>">
+              <div class="card-body text-secondary">
+                <h5 class="card-title"><%= issue.name %></h5>
+                <p class="card-text"><%= issue.description %></p>
+                <p class="card-text">Requester: <b><%= issue.user.name %></b></p>
+                <small class="card-text">Address: <b><%= issue.address %></b></small>
+                <br>
+                <small class="card-text">Pincode: <b><%= issue.pincode %></b></small>
+              </div>
+            </div>
+            <div class="card-footer bg-transparent border-secondary">
+              <% if issue.helping? %>
+                <small class="text-muted"><b><%= issue.resolved_by.name %></b> is helping on this issue</small>
+              <% end %>
+
+              <% if issue.open? %>
+                <small class="text-muted"><%= time_ago_in_words(issue.created_at) %> ago</small>
+                <div class="row mt-1">
+                  <div class="col-6">
+                    <a href="tel:<%= issue.user.mobile %>" ng-click="callPressed( <%= issue.id %>)">
+                      <button class="btn btn-sm btn-primary">
+                        Call
+                      </button>
+                    </a>
+                  </div>
+                  <div class="col-6" style="text-align: end">
+                    <button class="btn btn-sm btn-success" ng-click="wantToHelp(<%= issue.id %>)">
+                      <div ng-if="loading[<%= issue.id %>]" ng-cloak>
+                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                      </div>
+                      <span ng-if="!loading[<%= issue.id %>]" role="status" aria-hidden="true" ng-cloak>Help</span>
+                    </button>
+                  </div>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+
+  </div>
+
+</section>

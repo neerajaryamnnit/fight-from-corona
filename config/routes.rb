@@ -9,9 +9,12 @@ Rails.application.routes.draw do
   post "verify_otp" => "users#verify_otp"
 
   get "issues/list"
+  get "issues/want_to_help"
   get "issues/create"
   post "issues/create"
   get "issues/categories"
   get "issues/sub_categories"
   post "issues/resolve"
+  post "issues/call_pressed"
+  post "issues/issue_help"
 end
