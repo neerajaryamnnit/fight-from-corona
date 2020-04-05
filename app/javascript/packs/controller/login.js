@@ -10,7 +10,11 @@ angular.module("controller.login", [])
         };
         $scope.user = {};
         $scope.init = function (isLoggedIn) {
-            $scope.isLoggedIn = isLoggedIn
+            if (isLoggedIn === "false"){
+                $scope.isLoggedIn = false;
+            }else{
+                $scope.isLoggedIn = true;
+            }
         };
 
         $scope.lengthCount = function (e, type) {
