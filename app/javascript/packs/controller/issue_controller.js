@@ -170,8 +170,8 @@ angular.module("controller.issue", [])
                 $scope.selection.longitude = position.coords.longitude;
 
                 toaster.success({title: "Info", body: "We have fetched your location successfully"});
-                const latitude = position.coords.latitude;
-                const longitude = position.coords.longitude;
+                // const latitude = position.coords.latitude;
+                // const longitude = position.coords.longitude;
                 status.textContent = '';
                 // mapLink.href = `https://www.openstreetmap.org/#map=18/${latitude}/${longitude}`;
                 // mapLink.textContent = `Latitude: ${latitude} °, Longitude: ${longitude} °`;
