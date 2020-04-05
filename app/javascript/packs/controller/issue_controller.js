@@ -140,6 +140,10 @@ angular.module("controller.issue", [])
                 toaster.error({title: "Missing Option", body: "Looks like you have not selected the sub category"});
                 return;
             }
+            if ($scope.selection.pincode && ($scope.selection.pincode.search("^[1-9][0-9]{5}$") < 0)){
+                toaster.error({title: "Invalid Pincode!", body: "Please enter a valid pincode. Allowed range 100000 to 10000000"});
+                return;
+            }
 
             $scope.loading = true;
             $scope.tryAgain = false;
