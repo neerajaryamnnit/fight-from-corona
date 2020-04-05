@@ -17,4 +17,5 @@ Rails.application.routes.draw do
   post "issues/resolve"
   post "issues/call_pressed"
   post "issues/issue_help"
+  get "issues/search_issues"
 end
