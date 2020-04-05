@@ -29,8 +29,8 @@
                   <span class="badge badge-pill badge-secondary"><%= issue.issue_category.name %> </span>
                 </div>
                 <div class="col-3">
-                  <div class="row" style="text-align: end">
-                    <label style="color: #007bff" type="button" data-toggle="collapse" data-target="#multiCollapseExample<%= issue.id %>" aria-expanded="false" aria-controls="multiCollapseExample<%= issue.id %>">More</label>
+                  <div class="row" style="text-align: start">
+                    <small style="color: #007bff" type="button" data-toggle="collapse" data-target="#multiCollapseExample<%= issue.id %>" aria-expanded="false" aria-controls="multiCollapseExample<%= issue.id %>">DETAILS</small>
                   </div>
                 </div>
               </div>
@@ -54,20 +54,18 @@
               <% if issue.open? %>
                 <small class="text-muted"><%= time_ago_in_words(issue.created_at) %> ago</small>
                 <div class="row mt-1">
-                  <div class="col-6">
-                    <a href="tel:<%= issue.user.mobile %>" ng-click="callPressed( <%= issue.id %>)">
-                      <button class="btn btn-sm btn-primary">
-                        Call
-                      </button>
-                    </a>
-                  </div>
-                  <div class="col-6" style="text-align: end">
-                    <button class="btn btn-sm btn-success" ng-click="wantToHelp(<%= issue.id %>)">
+                  <div class="col-9" style="text-align: start">
+                    <a  ng-click="wantToHelp(<%= issue.id %>)">
                       <div ng-if="loading[<%= issue.id %>]" ng-cloak>
                         <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                       </div>
-                      <span ng-if="!loading[<%= issue.id %>]" role="status" aria-hidden="true" ng-cloak>Help</span>
-                    </button>
+                      <small style="color: forestgreen; cursor: pointer" ng-if="!loading[<%= issue.id %>]" role="status" aria-hidden="true" ng-cloak>SHARE MY NUMBER</small>
+                    </a>
+                  </div>
+                  <div class="col-3">
+                    <a href="tel:<%= issue.user.mobile %>" ng-click="callPressed( <%= issue.id %>)">
+                        <small>CALL</small>
+                    </a>
                   </div>
                 </div>
               <% end %>
