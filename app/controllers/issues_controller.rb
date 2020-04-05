@@ -109,4 +109,25 @@ class IssuesController < ApplicationController
       render json: {title: "Sorry!", message: "You can not help on this issue its already assigned"}, status: 400
     end
   end
+
+  # Parameters:
+  # => latitude - String : Mandatory
+  # => latitude - String: Mandatory
+  # => radius - Integer: Optional - Default set to 10 Km
+  # => all - Boolean: To show resloved issues too
+  # Returns data: [{'issue': issue_1, 'distance': 2}, {'issue': issue_2, 'distance': 2}]
+  def search_issues
+    if params[:latitude].blank? || params[:longitude].blank?
+      render json: { message: 'Missing Value!', error: 'Please enter your location' }, status: 422
+    end
+    if params[:radius].blank? || params[:radius] > 100
+      # Default search radius 10 KM.
+      params[:radius] = 10
+    end
+    sorted_issues = IssuesHelper.search_issues(params)
+    render json: {
+      message: "Nearby Issues",
+      data: sorted_issues
+    }, status: :ok
+  end
 end
