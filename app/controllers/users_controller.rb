@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+
   def send_otp
 
     if request.method == "GET"
@@ -25,7 +26,6 @@ class UsersController < ApplicationController
     user.generate_otp
     user.reload
     HTTParty.get("http://m1.sarv.com/api/v2.0/sms_campaign.php?token=#{ENV['SMS_PASSWORD']}&user_id=#{ENV['SMS_USER']}&route=TR&template_id=2096&sender_id=#{ENV['SMS_SENDER_ID']}&language=EN&template=Your+OTP+code+is+#{user.otp}&contact_numbers=#{phone}")
-    puts user.otp
     @phone = user.mobile
     @token = user.temp_token
     @show_otp = true
@@ -37,6 +37,35 @@ class UsersController < ApplicationController
   end
 
   def resend_otp
+
+    unless params[:phone].present?
+      render json: {title: "Missing Value!", error: "Phone number is missing number."}, status: 400
+      return
+    end
+    if !params[:token].present? || !params[:token].strip.present?
+      render json: { title:"Missing Value!" , error: "Token is missing." }, status: 400
+      return
+    end
+
+    phone = params[:phone]
+    token = params[:token].strip
+    email = phone.to_s + "@fightfromcorona.com"
+    user = User.where(email: email, temp_token: token).first
+
+    unless user.present?
+      render json: { title: "Not Found!" , message: "User not found for given value." }, status: 400
+      return
+    end
+
+    unless user.otp_created_at < (DateTime.now.utc - 1.minutes)
+      render json: { title: "Warning!" , message: "OTP can be resend after 1 minute." }, status: 400
+      return
+    end
+
+    user.otp_created_at = DateTime.now
+    user.save
+    HTTParty.get("http://m1.sarv.com/api/v2.0/sms_campaign.php?token=#{ENV['SMS_PASSWORD']}&user_id=#{ENV['SMS_USER']}&route=TR&template_id=2096&sender_id=#{ENV['SMS_SENDER_ID']}&language=EN&template=Your+OTP+code+is+#{user.otp}&contact_numbers=#{phone}")
+    render json: { title: "Congratulation!" , message: "Your otp has been resent." }, status: 200
 
   end
 

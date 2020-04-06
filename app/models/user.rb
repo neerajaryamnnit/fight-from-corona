@@ -10,12 +10,10 @@ class User < ApplicationRecord
       otp = (SecureRandom.random_number(9e5) + 1e5).to_i.to_s
       self.otp = otp
       self.password = otp
+      self.otp_created_at = DateTime.now
       regenerate_temp_token
     end
     save
   end
 
-  def valid_password?(password)
-
-  end
 end

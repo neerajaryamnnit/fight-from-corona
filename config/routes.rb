@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   post "send_otp" => "users#send_otp"
   get "send_otp" => "users#send_otp"
   post "verify_otp" => "users#verify_otp"
+  post "resend_otp" => "users#resend_otp"
 
   get "issues/list"
   get "issues/want_to_help"

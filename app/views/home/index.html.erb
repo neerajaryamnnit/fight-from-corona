@@ -89,7 +89,14 @@
                   <label for="validationTooltip05">Please enter your OTP</label>
                   <input class="form-control" name="otp" maxlength="6" style="height: auto" ng-model="user.otp" type="text" ng-keyup="lengthCount(this, 'otp')">
                 </div>
-                <button type="submit" class="btn btn-primary mb-2 ml-3">Verify</button>
+                <div class="form-row">
+                  <div class="col-6">
+                    <button type="submit" class="btn btn-primary mb-2 ml-3">VERIFY</button>
+                  </div>
+                  <div class="col-3">
+                    <button type="button" class="btn btn-primary mb-2 ml-3" ng-click="resendOTP(<%= @phone %>, '<%= @token %>', '<%= form_authenticity_token %>')">RESEND</button>
+                  </div>
+                </div>
               </form>
 
             <% end %>
