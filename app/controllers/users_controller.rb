@@ -22,7 +22,9 @@ class UsersController < ApplicationController
     end
     user.name = name
     user.mobile = phone
-    otp = user.generate_otp
+    user.generate_otp
+    user.reload
+    HTTParty.get("http://m1.sarv.com/api/v2.0/sms_campaign.php?token=#{ENV['SMS_PASSWORD']}&user_id=#{ENV['SMS_USER']}&route=TR&template_id=2096&sender_id=#{ENV['SMS_SENDER_ID']}&language=EN&template=Your+OTP+code+is+#{user.otp}&contact_numbers=#{phone}")
     puts user.otp
     @phone = user.mobile
     @token = user.temp_token
@@ -32,6 +34,10 @@ class UsersController < ApplicationController
 
   def login_params(params)
     params.require(:login).permit(:phone, :name, :otp)
+  end
+
+  def resend_otp
+
   end
 
   def verify_otp
