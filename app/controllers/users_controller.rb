@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-
+  skip_forgery_protection
   def send_otp
 
     if request.method == "GET"
