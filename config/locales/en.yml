@@ -73,3 +73,11 @@ en:
                        </a> to add some."
       connect: "CONNECT"
       resolve: "RESOLVED"
+    want_to_help:
+      back: "BACK"
+      details: "DETAILS"
+      no_issue: "No issues are reported in your area"
+      someone_helping_html: "<b>%{name}</b> is helping you on this issue"
+      share_number: "SHARE MY NUMBER"
+      call: "CALL"
+      requester: "Requester:"

@@ -41,6 +41,15 @@ hn:
                              </a> बटन किसी समस्या के लिए"
       connect: "जुडिये"
       resolve: "मदद मिल गयी"
+    want_to_help:
+      issue_list_in_area: "मेरे क्षेत्र में समस्याओ का अनुरोध"
+      back: "वापस"
+      details: "विवरण"
+      no_issue: "आपके क्षेत्र में कोई समस्या नहीं बताई गई है"
+      someone_helping_html: "<b>%{name}</b> इस मुद्दे पर आपकी मदद कर रहे है"
+      share_number: "मेरा नंबर साझा करें"
+      call: "कॉल"
+      requester: "अनुरोधकर्ता:"
   activerecord:
     errors:
       messages:

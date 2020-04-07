@@ -4,20 +4,20 @@
     <div class="d-flex flex-column mt-1">
       <div class="d-flex flex-row justify-content-between">
         <div class="d-flex flex-column">
-          Issue request in my area
+          <%= t '.issue_list_in_area' %>
         </div>
         <div class="d-flex flex-column">
           <a href="javascript:history.back()" target="_parent">
-            <button class="btn  btn-sm btn-outline-primary"> BACK</button>
+            <button class="btn  btn-sm btn-outline-primary"><%= t '.back' %></button>
           </a>
         </div>
       </div>
       <% if @issues.count == 0 %>
         <div class="card border-secondary mb-3 mt-3" style="max-width: 18rem;">
           <div class="card-body text-secondary">
-            <p class="card-text">No issues are reported in your area</p>
+            <p class="card-text"><%= t '.no_issue' %></p>
             <a href="javascript:history.back()" target="_parent">
-              <button class="btn btn-primary"> Back</button>
+              <button class="btn btn-primary"><%= t '.back' %></button>
             </a>
           </div>
         </div>
@@ -34,7 +34,7 @@
                 </div>
                 <div class="col-3">
                   <div class="row" style="text-align: start">
-                    <small style="color: #007bff" type="button" data-toggle="collapse" data-target="#multiCollapseExample<%= issue.id %>" aria-expanded="false" aria-controls="multiCollapseExample<%= issue.id %>">DETAILS</small>
+                    <small style="color: #007bff" type="button" data-toggle="collapse" data-target="#multiCollapseExample<%= issue.id %>" aria-expanded="false" aria-controls="multiCollapseExample<%= issue.id %>"><%= t '.details' %></small>
                   </div>
                 </div>
               </div>
@@ -44,15 +44,15 @@
               <div class="card-body text-secondary">
                 <h5 class="card-title"><%= issue.name %></h5>
                 <p class="card-text"><%= issue.description %></p>
-                <p class="card-text">Requester: <b><%= issue.user.name %></b></p>
-                <small class="card-text">Address: <b><%= issue.address %></b></small>
+                <p class="card-text"><%= t '.requester' %> <b><%= issue.user.name %></b></p>
+                <small class="card-text"> <%= t('issues.create.address')%>: <b><%= issue.address %></b></small>
                 <br>
-                <small class="card-text">Pincode: <b><%= issue.pincode %></b></small>
+                <small class="card-text"><%= t('issues.create.pincode') %>: <b><%= issue.pincode %></b></small>
               </div>
             </div>
             <div class="card-footer bg-transparent border-secondary">
               <% if issue.helping? %>
-                <small class="text-muted"><b><%= issue.resolved_by.name %></b> is helping on this issue</small>
+                <small class="text-muted"><%= t('.someone_helping_html', name: issue.resolved_by.name )  %></small>
               <% end %>
 
               <% if issue.open? %>
@@ -63,12 +63,12 @@
                       <div ng-if="loading[<%= issue.id %>]" ng-cloak>
                         <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                       </div>
-                      <small style="color: forestgreen; cursor: pointer" ng-if="!loading[<%= issue.id %>]" role="status" aria-hidden="true" ng-cloak>SHARE MY NUMBER</small>
+                      <small style="color: forestgreen; cursor: pointer" ng-if="!loading[<%= issue.id %>]" role="status" aria-hidden="true" ng-cloak><%= t '.share_number' %></small>
                     </a>
                   </div>
                   <div class="col-3">
                     <a href="tel:<%= issue.user.mobile %>" ng-click="callPressed( <%= issue.id %>)">
-                        <small>CALL</small>
+                        <small><%= t '.call' %></small>
                     </a>
                   </div>
                 </div>
