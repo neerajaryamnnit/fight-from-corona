@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
   helper_method :daily_case
   helper_method :user_signed_in?
   helper_method :authenticate_user!
+  around_action :switch_locale
 
   def current_user
     # Look up the current user based on user_id in the session cookie:
@@ -22,5 +23,10 @@ class ApplicationController < ActionController::Base
       session.delete(:user_id)
       redirect_to root_path, flash: {error: 'Your must be logged in to access this page'}
     end
+  end
+
+  def switch_locale(&action)
+    locale = session[:locale].present? ? session[:locale] : I18n.default_locale
+    I18n.with_locale(locale, &action)
   end
 end

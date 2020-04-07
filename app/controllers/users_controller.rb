@@ -89,4 +89,15 @@ class UsersController < ApplicationController
       redirect_to root_path, flash: { error: "Login Successful"}
     end
   end
+
+  def change_locale
+    unless params[:locale].present?
+      redirect_to root_path
+    end
+    unless I18n.available_locales.include?(params[:locale].to_sym)
+      redirect_to root_path
+    end
+    session[:locale] = params[:locale]
+    redirect_to root_path
+  end
 end

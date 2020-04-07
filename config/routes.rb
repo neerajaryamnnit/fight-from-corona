@@ -19,4 +19,5 @@ Rails.application.routes.draw do
   post "issues/call_pressed"
   post "issues/issue_help"
   get "issues/search_issues"
+  get "users/change_locale"
 end
