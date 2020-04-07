@@ -5,14 +5,16 @@
     <!--    </div>-->
     <div layout="row" layout-align="center center">
       <%#= image_tag("india", :alt => "rss feed", size: "48x48") %>
-
+      <picture>
+        <%= image_tag("udaipur.png", class: "img-fluid img-thumbnail") %>
+      </picture>
     </div>
     <% if user_signed_in? %>
       <div layout="row" layout-align="center center">
 
       </div>
     <% end %>
-    <div layout="row" layout-align="center center">
+    <div class="mt-2" layout="row" layout-align="center center">
       <%#= image_tag("india", :alt => "rss feed", size: "48x48") %>
       <h4><%= t(:corona_stats) %></h4>
     </div>
