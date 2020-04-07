@@ -4,20 +4,19 @@
     <div class="d-flex flex-column mt-1">
       <div class="d-flex flex-row justify-content-between">
         <div class="d-flex flex-column">
-          My help requests
+          <%= t '.my_help' %>
         </div>
         <div class="d-flex">
           <a href="create" target="_parent">
-            <button type="button" class="btn btn-sm btn-outline-success"><span>+ Add</span></button>
+            <button type="button" class="btn btn-sm btn-outline-success"><span><%= t '.add' %></span></button>
           </a>
         </div>
       </div>
       <% if @issues.count == 0 %>
         <div class="card border-secondary mb-3 mt-3" style="max-width: 18rem;">
           <div class="card-body text-secondary">
-            <p class="card-text">You haven't added any <b>issue</b> yet. <br> Press <a href="create" target="_parent">
-              <button type="button" class="btn btn-sm btn-outline-success"><span>+ Add</span></button>
-            </a> to add some.
+            <p class="card-text">
+              <%= t '.no_issue_html' %>
             </p>
           </div>
         </div>
@@ -35,10 +34,10 @@
             <div class="card-footer bg-transparent border-secondary">
               <div class="row">
                 <div class="col-6" >
-                  <small class="text-muted"><b><%= issue.resolved_by.name %></b> is helping you on this issue</small>
+                  <small class="text-muted"><%= t('.someone_helping_html', name: issue.resolved_by.name)  %></small>
                 </div>
                 <div class="col-6" style="text-align: end">
-                  <a href="tel:<% issue.resolved_by.mobile %>"><button class="btn btn-sm btn-success" ng-click="callPressed(<%= issue.id %>)">CONNECT
+                  <a href="tel:<% issue.resolved_by.mobile %>"><button class="btn btn-sm btn-success" ng-click="callPressed(<%= issue.id %>)"><%= t '.connect' %>
                   </button></a>
                 </div>
               </div>
@@ -57,14 +56,14 @@
             <div class="card-footer bg-transparent border-secondary">
               <div class="row">
                 <div class="col-6">
-                  <small class="text-muted"><%= time_ago_in_words(issue.created_at) %> ago</small>
+                  <small class="text-muted"><%= time_ago_in_words(issue.created_at) %> <%= t '.ago' %></small>
                 </div>
                 <div class="col-6" style="text-align: end">
                   <button class="btn btn-sm btn-success" ng-click="removeIssue(<%= issue.id %>)">
                     <div ng-if="loading[<%= issue.id %>]" class="ng-cloak">
                       <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                     </div>
-                    <span ng-if="!loading[<%= issue.id %>]" role="status" aria-hidden="true" ng-cloak>Resolve</span>
+                    <span ng-if="!loading[<%= issue.id %>]" role="status" aria-hidden="true" ng-cloak><%= t '.resolve' %></span>
                   </button>
                 </div>
               </div>

@@ -63,3 +63,13 @@ en:
       pincode: "Pincode"
       disclaimer_html: "<b>Note:</b> Your phone <b>number</b> might be shared with people near you so that they can reach you quicker"
       submit_issue: "Submit Your Issue"
+    list:
+      my_help: "My help requests"
+      someone_helping_html: "<b>%{name}</b> is helping you on this issue"
+      ago: "ago"
+      add: "+ ADD"
+      no_issue_html: "You have not added any <b>issue</b> yet. <br> Press <a href='create' target='_parent'>
+                       <button type='button' class='btn btn-sm btn-outline-success'><span>+ Add</span></button>
+                       </a> to add some."
+      connect: "CONNECT"
+      resolve: "RESOLVED"
