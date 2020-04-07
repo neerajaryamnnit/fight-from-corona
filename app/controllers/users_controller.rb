@@ -70,6 +70,11 @@ class UsersController < ApplicationController
   end
 
   def verify_otp
+
+    if request.method == "GET"
+      redirect_to root_path
+    end
+
     @phone = params[:phone].strip
     @token = params[:token].strip
     @show_otp = true
