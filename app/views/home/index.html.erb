@@ -14,30 +14,30 @@
     <% end %>
     <div layout="row" layout-align="center center">
       <%#= image_tag("india", :alt => "rss feed", size: "48x48") %>
-      <h4>Corona Stats</h4>
+      <h4><%= t(:corona_stats) %></h4>
     </div>
     <div layout="row" layout-align="center center">
       <div layout="column" layout-align="center">
         <div layout="row">
           <div layout="column" flex="50" layout-align="center center">
-            <div class="stats total"><h5>Confirmed</h5>
+            <div class="stats total"><h5><%= t(:confirmed) %></h5>
               <div class="stats-bottom"><h1><%= daily_case.total || 0 %></h1><h6></h6></div>
             </div>
           </div>
           <div layout="column" flex="50" flex-offset="5" layout-align="center center">
-            <div class="stats active"><h5>Active</h5>
+            <div class="stats active"><h5><%= t(:active) %></h5>
               <div class="stats-bottom"><h1><%= daily_case.active || 0 %></h1><h6></h6></div>
             </div>
           </div>
         </div>
         <div layout="row">
           <div layout="column" flex="50" layout-align="center center">
-            <div class="stats recover"><h5>Recovered</h5>
+            <div class="stats recover"><h5><%= t(:recovered) %></h5>
               <div class="stats-bottom"><h1><%= daily_case.recover || 0 %></h1><h6></h6></div>
             </div>
           </div>
           <div layout="column" flex="50" flex-offset="5" layout-align="center center">
-            <div class="stats deceased"><h5>Deceased</h5>
+            <div class="stats deceased"><h5><%= t(:deceased) %></h5>
               <div class="stats-bottom"><h1><%= daily_case.deceased || 0 %></h1><h6></h6></div>
             </div>
           </div>
@@ -45,15 +45,15 @@
         <% if user_signed_in? %>
           <div layout="row" layout-align="center">
             <a flex="50" href="issues/list" target="_parent">
-              <md-button class="md-raised md-primary">Ask For Help</md-button>
+              <md-button class="md-raised md-primary"><%= t(:ask_for_help) %></md-button>
             </a>
             <a flex="50" href="issues/want_to_help" target="_parent" >
-              <md-button class="md-raised md-primary">Want to Help</md-button>
+              <md-button class="md-raised md-primary"><%= t(:want_to_help) %></md-button>
             </a>
           </div>
         <% else %>
           <div layout="row" layout-align="center">
-            <span>Login to ask for help or start helping someone else</span>
+            <span><%= t(:ask_for_login) %></span>
           </div>
           <p id="error"><%= flash[:error] %></p>
           <div layout="column" layout-align="center">
@@ -63,18 +63,18 @@
                 <%= csrf_meta_tag %>
                 <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
 
-                <label>Name</label>
-                <input type="text" name="name" class="form-control mb-2 mr-sm-2" id="inlineFormInputName2" placeholder="Please enter your name" required>
-                <!--                    <input name="name" maxlength="30" style="height: auto" ng-model="user.name" type="text" ng-keyup="lengthCount(this, 'name')">-->
+                <label><%= t(:name) %></label>
+                <input type="text" name="name" class="form-control mb-2 mr-sm-2" id="inlineFormInputName2" placeholder="<%= t(:name_placehoder) %>" required>
 
-                <label class="sr-only" for="inlineFormInputGroupUsername2">Phone Number</label>
+
+                <label class="sr-only" for="inlineFormInputGroupUsername2"><%= t(:phone_number) %></label>
                 <div class="input-group mb-2 mr-sm-2">
                   <div class="input-group-prepend">
                     <div class="input-group-text">Mob</div>
                   </div>
-                  <input class="form-control" name="phone" maxlength="10" style="height: auto" type="text" placeholder="Phone Number" ng-keyup="lengthCount(this, 'phone')" aria-label="Phone Number" required>
+                  <input class="form-control" name="phone" maxlength="10" style="height: auto" type="text" placeholder="<%= t(:phone_number) %>" ng-keyup="lengthCount(this, 'phone')" aria-label="Phone Number" required>
                 </div>
-                <button type="submit" class="btn btn-primary mb-2">Sent OTP</button>
+                <button type="submit" class="btn btn-primary mb-2"><%= t(:sent_otp) %></button>
               </form>
 
             <% end %>
@@ -86,15 +86,15 @@
                 <input type="hidden" name="phone" hidden value="<%= @phone %>">
                 <input type="hidden" name="token" hidden value="<%= @token %>">
                 <div class="col-md-3 mb-3">
-                  <label for="validationTooltip05">Please enter your OTP</label>
+                  <label for="validationTooltip05"><%= t(:enter_otp) %></label>
                   <input class="form-control" name="otp" maxlength="6" style="height: auto" ng-model="user.otp" type="text" ng-keyup="lengthCount(this, 'otp')">
                 </div>
                 <div class="form-row">
                   <div class="col-6">
-                    <button type="submit" class="btn btn-primary mb-2 ml-3">VERIFY</button>
+                    <button type="submit" class="btn btn-primary mb-2 ml-3"><%= t(:verify) %></button>
                   </div>
                   <div class="col-3">
-                    <button type="button" class="btn btn-primary mb-2 ml-3" ng-click="resendOTP(<%= @phone %>, '<%= @token %>', '<%= form_authenticity_token %>')">RESEND</button>
+                    <button type="button" class="btn btn-primary mb-2 ml-3" ng-click="resendOTP(<%= @phone %>, '<%= @token %>', '<%= form_authenticity_token %>')"><%= t(:resend) %></button>
                   </div>
                 </div>
               </form>

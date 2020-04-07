@@ -7,11 +7,11 @@
           <p id = "status"></p>
         </div>
         <div ng-if="!showPermissionRequest" class="col-md-9 mb-3">
-          <p >Your exact location will enable to help you better
-            <button class="btn btn-primary btn-sm" ng-click="getLocation()">Allow</button></p><br/>
+          <p ><%= t '.location_request' %>
+            <button class="btn btn-primary btn-sm" ng-click="getLocation()"><%= t(:allow) %>  </button></p><br/>
         </div>
         <div class="col-md-9 mb-3">
-          <label >Category</label>
+          <label ><%= t '.category' %></label>
           <select
               ng-model="selection.category"
               ng-change="onCategoryChange()"
@@ -23,7 +23,7 @@
       </div>
       <div class="form-row">
         <div class="col-md-9 mb-3">
-          <label >Sub Category</label>
+          <label ><%= t '.sub_category' %></label>
           <select
             ng-model="selection.sub_category" ng-options="value.id as value.name group by value.group for value in sub_categories"
             name="category_sub_id" class="custom-select">
@@ -37,34 +37,31 @@
         <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
         <div class="form-row">
           <div class="col-md-9 mb-3">
-            <label for="validationTooltip01">Issue Name</label>
-            <input type="text" ng-model="selection.name" class="form-control" id="validationTooltip01" placeholder="Please name your issue" required>
+            <label for="validationTooltip01"><%= t '.issue_name' %></label>
+            <input type="text" ng-model="selection.name" class="form-control" id="validationTooltip01" placeholder="<%= t '.issue_name_placeholder' %>" required>
           </div>
         </div>
         <div class="form-row">
           <div class="col-md-9 mb-3">
-            <label for="validationTooltip02">Issue Description</label>
-            <textarea ng-model="selection.description" type="text" class="form-control" id="validationTooltip02" placeholder="Please describe your issue" required></textarea>
+            <label for="validationTooltip02"><%= t '.issue_desc' %></label>
+            <textarea ng-model="selection.description" type="text" class="form-control" id="validationTooltip02" placeholder="<%= t '.issue_desc_placeholder' %>" required></textarea>
           </div>
         </div>
         <div class="form-row">
           <div class="col-md-9 mb-3">
-            <label for="validationTooltip03">Address</label>
-            <input type="text" ng-model="selection.address" class="form-control" name="address" placeholder="Please provide your address" required>
+            <label for="validationTooltip03"><%= t '.address' %></label>
+            <input type="text" ng-model="selection.address" class="form-control" name="address" placeholder="<%= t '.address' %>" required>
           </div>
         </div>
         <div class="form-row">
           <div class="col-md-9 mb-3">
-            <label for="validationTooltip05">Pincode</label>
-            <input type="text" ng-model="selection.pincode" class="form-control" name="pincode" placeholder="Pincode" required>
-            <div class="invalid-tooltip">
-              Please provide a valid pincode.
-            </div>
+            <label for="validationTooltip05"><%= t '.pincode' %></label>
+            <input type="text" ng-model="selection.pincode" class="form-control" name="pincode" placeholder="<%= t '.pincode' %>" required>
           </div>
         </div>
         <div class="form-row">
           <div class="col-9 mb-2">
-            <small><b>Note:</b> Your <b>phone number</b> might be shared with people near you so that they can reach you quicker</small>
+            <small><%= t '.disclaimer_html' %></small>
           </div>
         </div>
         <button class="btn btn-primary mb-3" type="button" ng-click="createIssue()">
@@ -72,7 +69,7 @@
             <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
             <span role="status" aria-hidden="true">Creating Issue...</span>
           </div>
-          <span ng-if="!loading" role="status" aria-hidden="true" ng-cloak>Submit Your Issue</span>
+          <span ng-if="!loading" role="status" aria-hidden="true" ng-cloak><%= t '.submit_issue' %></span>
         </button>
       </form>
     </div>
