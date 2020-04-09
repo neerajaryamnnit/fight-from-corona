@@ -102,6 +102,7 @@ class UsersController < ApplicationController
     unless I18n.available_locales.include?(params[:locale].to_sym)
       redirect_to root_path
     end
+    REDIS.set("LOCALE", params[:locale])
     session[:locale] = params[:locale]
     redirect_to root_path
   end

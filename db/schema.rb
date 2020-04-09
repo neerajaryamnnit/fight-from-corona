@@ -10,7 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_05_073620) do
+ActiveRecord::Schema.define(version: 2020_04_09_150333) do
+
+  create_table "app_configs", force: :cascade do |t|
+    t.string "key"
+    t.string "value"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "blazer_audits", force: :cascade do |t|
     t.integer "user_id"
@@ -95,6 +102,15 @@ ActiveRecord::Schema.define(version: 2020_04_05_073620) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "issue_category_translations", force: :cascade do |t|
+    t.string "name"
+    t.string "language"
+    t.integer "issue_category_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["issue_category_id"], name: "index_issue_category_translations_on_issue_category_id"
+  end
+
   create_table "issue_sub_categories", force: :cascade do |t|
     t.string "name"
     t.string "description"
@@ -102,6 +118,15 @@ ActiveRecord::Schema.define(version: 2020_04_05_073620) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["issue_category_id"], name: "index_issue_sub_categories_on_issue_category_id"
+  end
+
+  create_table "issue_sub_category_translations", force: :cascade do |t|
+    t.string "name"
+    t.string "language"
+    t.integer "issue_sub_category_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["issue_sub_category_id"], name: "index_issue_sub_category_translations_on_issue_sub_category_id"
   end
 
   create_table "issues", force: :cascade do |t|
@@ -158,6 +183,8 @@ ActiveRecord::Schema.define(version: 2020_04_05_073620) do
 
   add_foreign_key "issue_activities", "issues"
   add_foreign_key "issue_activities", "users", column: "creator_id"
+  add_foreign_key "issue_category_translations", "issue_categories"
+  add_foreign_key "issue_sub_category_translations", "issue_sub_categories"
   add_foreign_key "issues", "issue_categories"
   add_foreign_key "issues", "issue_sub_categories"
   add_foreign_key "issues", "users"
