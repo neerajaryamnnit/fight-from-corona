@@ -54,7 +54,16 @@
     <% end %>
 
         <% if user_signed_in? %>
-          <div class="d-flex  flex-row mt-5 justify-content-center" >
+      <div class="card mt-4">
+        <div class="card-header">
+          <%= t('username_html', name: current_user.name) %>
+        </div>
+        <div class="card-body">
+          <div class="card-text"><%= t('now_you_can_help') %></div>
+
+          <div class="card-subtitle mt-3"><b><%= t('choose_option') %> </b></div>
+          <div class="d-flex mt-3 flex-row justify-content-center" >
+
             <a class="d-flex " href="issues/list" target="_parent">
               <button class="btn btn-primary"><%= t(:ask_for_help) %></button>
             </a>
@@ -62,6 +71,10 @@
               <button class="btn btn-primary"><%= t(:want_to_help) %></button>
             </a>
           </div>
+        </div>
+
+      </div>
+
         <% else %>
 
           <p id="error"><%= flash[:error] %></p>
