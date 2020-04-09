@@ -109,16 +109,13 @@ class UsersController < ApplicationController
       render 'users/sign_up'
       return
     end
-    unless params[:name].present?
-      flash[:error] = t(:phone_validation)
-      render 'users/sign_up'
-      return
-    end
+
     unless params[:pincode].present?
       flash[:error] = t(:pincode_validation)
       render 'users/sign_up'
       return
     end
+
     unless params[:thana].present?
       flash[:error] = t(:thana_validation)
       render 'users/sign_up'
@@ -138,7 +135,7 @@ class UsersController < ApplicationController
     user.mobile = params[:phone]
     user.email = email
     user.thana = params[:thana]
-    user.city = params[:distict]
+    user.city = params[:district]
     user.pincode = params[:pincode]
     user.save
 
