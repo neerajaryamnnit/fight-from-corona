@@ -51,11 +51,11 @@
               </div>
             </div>
             <div class="card-footer bg-transparent border-secondary">
-              <% if issue.helping? %>
-                <small class="text-muted"><%= t('.someone_helping_html', name: issue.resolved_by.name )  %></small>
-              <% end %>
+              <%# if issue.helping? %>
+<!--                <small class="text-muted"><%#= t('.someone_helping_html', name: issue.resolved_by.name )  %></small>-->
+              <%# end %>
 
-              <% if issue.open? %>
+              <% if issue.open? || issue.helping? %>
                 <small class="text-muted"><%= time_ago_in_words(issue.created_at) %> ago</small>
                 <div class="row mt-1">
                   <div class="col-9" style="text-align: start">
@@ -67,9 +67,9 @@
                     </a>
                   </div>
                   <div class="col-3">
-                    <a href="tel:<%= issue.user.mobile %>" ng-click="callPressed( <%= issue.id %>)">
-                        <small><%= t '.call' %></small>
-                    </a>
+<!--                    <a href="tel:<%#= issue.user.mobile %>" ng-click="callPressed( <%#= issue.id %>)">-->
+<!--                        <small><%#= t '.call' %></small>-->
+<!--                    </a>-->
                   </div>
                 </div>
               <% end %>

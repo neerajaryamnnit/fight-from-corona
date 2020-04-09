@@ -3,11 +3,49 @@
     <!--    <div layout="row" layout-align="center">-->
     <!--      <b><label class="md-label" style="font-size: 20px">Fight with Corona</label></b>-->
     <!--    </div>-->
+
+    <div class="flex-row">
+    <div class="d-flex flex-column  mt-3 justify-content-center">
+      <p class="blockquote"><%= t 'pm_message_1' %>
+      </p>
+      <div class="flex-row " style="text-align: end">
+        <h1 class="blockquote-footer "><%= t 'honorable_pm' %></h1>
+      </div>
+    </div>
+    </div>
     <div layout="row" layout-align="center center">
       <%#= image_tag("india", :alt => "rss feed", size: "48x48") %>
-      <picture>
-        <%= image_tag("udaipur.png", class: "img-fluid img-thumbnail") %>
-      </picture>
+<!--      <picture>-->
+        <%= image_tag("modi-ji.png", class: "img-fluid img-thumbnail") %>
+<!--      </picture>-->
+<!--      <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">-->
+<!--        <ol class="carousel-indicators">-->
+<!--          <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>-->
+<!--          <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>-->
+<!--          <li data-target="#carouselExampleIndicators" data-slide-to= "2"></li>-->
+<!--        </ol>-->
+<!--        <div class="carousel-inner">-->
+<!--          <div class="carousel-item active">-->
+            <%#= image_tag("slider/slider-1.png", class: "d-block w-60", alt: "First Slide") %>
+<!--          </div>-->
+<!--          <div class="carousel-item">-->
+            <%#= image_tag("slider/slider-2.png", class: "d-block w-60", alt: "2 Slide") %>
+
+<!--          </div>-->
+<!--          <div class="carousel-item">-->
+            <%#= image_tag("slider/slider-3.png", class: "d-block w-60", alt: "3 Slide") %>
+<!--          </div>-->
+<!--        </div>-->
+<!--        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">-->
+<!--          <span class="carousel-control-prev-icon" aria-hidden="true"></span>-->
+<!--          <span class="sr-only">Previous</span>-->
+<!--        </a>-->
+<!--        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">-->
+<!--          <span class="carousel-control-next-icon" aria-hidden="true"></span>-->
+<!--          <span class="sr-only">Next</span>-->
+<!--        </a>-->
+<!--      </div>-->
+
     </div>
     <% if user_signed_in? %>
       <div layout="row" layout-align="center center">
@@ -45,12 +83,12 @@
           </div>
         </div>
         <% if user_signed_in? %>
-          <div layout="row" layout-align="center">
+          <div layout="row"  layout-align="center">
             <a flex="50" href="issues/list" target="_parent">
-              <md-button class="md-raised md-primary"><%= t(:ask_for_help) %></md-button>
+              <button class="btn btn-primary"><%= t(:ask_for_help) %></button>
             </a>
             <a flex="50" href="issues/want_to_help" target="_parent" >
-              <md-button class="md-raised md-primary"><%= t(:want_to_help) %></md-button>
+              <button class="btn btn-primary"><%= t(:want_to_help) %></button>
             </a>
           </div>
         <% else %>
