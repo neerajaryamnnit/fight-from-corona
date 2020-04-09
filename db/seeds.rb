@@ -10,7 +10,7 @@
 issue_subs = [{name: "Need Medical Help", category: "Medical"}, {name: "Need Grocery Help", category: "Grocery"}, {name: "Need Baby Milk", category: "Grocery"}]
 
 require 'csv'
-csv_text = File.read('db/categories.csv')
+csv_text = File.read('db/cat-hindi.csv')
 csv = CSV.parse(csv_text, :headers => true)
 csv.each do |row|
   category = IssueCategory.where(name: row[0]).first_or_create!
