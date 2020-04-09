@@ -5,19 +5,19 @@
     <!--    </div>-->
 
     <div class="flex-row">
-    <div class="d-flex flex-column  mt-3 justify-content-center">
-      <p class="blockquote"><%= t 'pm_message_1' %>
-      </p>
-      <div class="flex-row " style="text-align: end">
-        <h1 class="blockquote-footer "><%= t 'honorable_pm' %></h1>
-      </div>
-    </div>
+<!--    <div class="d-flex flex-column  mt-3 justify-content-center">-->
+<!--      <p class="blockquote"><%#= t 'pm_message_1' %>-->
+<!--      </p>-->
+<!--      <div class="flex-row " style="text-align: end">-->
+<!--        <h1 class="blockquote-footer "><%#= t 'honorable_pm' %></h1>-->
+<!--      </div>-->
+<!--    </div>-->
     </div>
     <div layout="row" layout-align="center center">
       <%#= image_tag("india", :alt => "rss feed", size: "48x48") %>
-<!--      <picture>-->
-        <%= image_tag("modi-ji.png", class: "img-fluid img-thumbnail") %>
-<!--      </picture>-->
+      <picture>
+        <%= image_tag("udaipur.png", class: "img-fluid img-thumbnail") %>
+      </picture>
 <!--      <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">-->
 <!--        <ol class="carousel-indicators">-->
 <!--          <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>-->
@@ -52,70 +52,49 @@
 
       </div>
     <% end %>
-    <div class="mt-2" layout="row" layout-align="center center">
-      <%#= image_tag("india", :alt => "rss feed", size: "48x48") %>
-      <h4><%= t(:corona_stats) %></h4>
-    </div>
-    <div layout="row" layout-align="center center">
-      <div layout="column" layout-align="center">
-        <div layout="row">
-          <div layout="column" flex="50" layout-align="center center">
-            <div class="stats total"><h5><%= t(:confirmed) %></h5>
-              <div class="stats-bottom"><h1><%= daily_case.total || 0 %></h1><h6></h6></div>
-            </div>
-          </div>
-          <div layout="column" flex="50" flex-offset="5" layout-align="center center">
-            <div class="stats active"><h5><%= t(:active) %></h5>
-              <div class="stats-bottom"><h1><%= daily_case.active || 0 %></h1><h6></h6></div>
-            </div>
-          </div>
-        </div>
-        <div layout="row">
-          <div layout="column" flex="50" layout-align="center center">
-            <div class="stats recover"><h5><%= t(:recovered) %></h5>
-              <div class="stats-bottom"><h1><%= daily_case.recover || 0 %></h1><h6></h6></div>
-            </div>
-          </div>
-          <div layout="column" flex="50" flex-offset="5" layout-align="center center">
-            <div class="stats deceased"><h5><%= t(:deceased) %></h5>
-              <div class="stats-bottom"><h1><%= daily_case.deceased || 0 %></h1><h6></h6></div>
-            </div>
-          </div>
-        </div>
+
         <% if user_signed_in? %>
-          <div layout="row"  layout-align="center">
-            <a flex="50" href="issues/list" target="_parent">
+          <div class="d-flex  flex-row mt-5 justify-content-center" >
+            <a class="d-flex " href="issues/list" target="_parent">
               <button class="btn btn-primary"><%= t(:ask_for_help) %></button>
             </a>
-            <a flex="50" href="issues/want_to_help" target="_parent" >
+            <a class="d-flex flex-offset-10" href="issues/want_to_help" target="_parent" >
               <button class="btn btn-primary"><%= t(:want_to_help) %></button>
             </a>
           </div>
         <% else %>
-          <div layout="row" layout-align="center">
-            <span><%= t(:ask_for_login) %></span>
-          </div>
+
           <p id="error"><%= flash[:error] %></p>
           <div layout="column" layout-align="center">
             <% unless @show_otp %>
 
-              <form class="form-inline" method="post" name="loginForm" novalidate action="send_otp" ng-submit="loginform.$valid && formValidate()">
-                <%= csrf_meta_tag %>
-                <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+              <div class="card bg-light mb-3 card-success">
+                <div class="card-header">
+                    <span><%= t(:ask_for_login) %></span>
 
-                <label><%= t(:name) %></label>
-                <input type="text" name="name" class="form-control mb-2 mr-sm-2" id="inlineFormInputName2" placeholder="<%= t(:name_placehoder) %>" required>
-
-
-                <label class="sr-only" for="inlineFormInputGroupUsername2"><%= t(:phone_number) %></label>
-                <div class="input-group mb-2 mr-sm-2">
-                  <div class="input-group-prepend">
-                    <div class="input-group-text">Mob</div>
-                  </div>
-                  <input class="form-control" name="phone" maxlength="10" style="height: auto" type="text" placeholder="<%= t(:phone_number) %>" ng-keyup="lengthCount(this, 'phone')" aria-label="Phone Number" required>
                 </div>
-                <button type="submit" class="btn btn-primary mb-2"><%= t(:sent_otp) %></button>
-              </form>
+                <div class="card-body">
+                  <form class="form-inline" method="post" name="loginForm" novalidate action="send_otp" ng-submit="loginform.$valid && formValidate()">
+                    <%= csrf_meta_tag %>
+                    <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+
+                    <label><%= t(:name) %></label>
+                    <input type="text" name="name" class="form-control mb-2 mr-sm-2" id="inlineFormInputName2" placeholder="<%= t(:name_placehoder) %>" required>
+
+
+                    <label><%= t(:phone_number) %></label>
+                    <div class="input-group mb-2 mr-sm-2">
+                      <div class="input-group-prepend">
+                        <div class="input-group-text">Mob</div>
+                      </div>
+                      <input class="form-control" name="phone" maxlength="10" style="height: auto" type="text" placeholder="<%= t(:phone_number) %>" ng-keyup="lengthCount(this, 'phone')" aria-label="Phone Number" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary mb-2"><%= t(:sent_otp) %></button>
+                  </form>
+                </div>
+
+              </div>
+
 
             <% end %>
             <% if @show_otp %>
@@ -138,12 +117,40 @@
                   </div>
                 </div>
               </form>
-
             <% end %>
 
           </div>
         <% end %>
-
+    <div class="mt-5" layout="row" layout-align="center center">
+      <%#= image_tag("india", :alt => "rss feed", size: "48x48") %>
+      <h4><%= t(:corona_stats) %></h4>
+    </div>
+    <div layout="row" layout-align="center center">
+      <div layout="column" layout-align="center">
+        <div layout="row">
+          <div layout="column" flex="50" layout-align="center center">
+            <div class="stats total"><h4><%= t(:confirmed) %></h4>
+              <div class="stats-bottom"><h6><%= daily_case.total || 0 %></h6><h6></h6></div>
+            </div>
+          </div>
+          <div layout="column" flex="50" flex-offset="5" layout-align="center center">
+            <div class="stats active"><h6><%= t(:active) %></h6>
+              <div class="stats-bottom"><h4><%= daily_case.active || 0 %></h4><h6></h6></div>
+            </div>
+          </div>
+        </div>
+        <div layout="row">
+          <div layout="column" flex="50" layout-align="center center">
+            <div class="stats recover"><h6><%= t(:recovered) %></h6>
+              <div class="stats-bottom"><h4><%= daily_case.recover || 0 %></h4><h6></h6></div>
+            </div>
+          </div>
+          <div layout="column" flex="50" flex-offset="5" layout-align="center center">
+            <div class="stats deceased"><h6><%= t(:deceased) %></h6>
+              <div class="stats-bottom"><h4><%= daily_case.deceased || 0 %></h4><h6></h6></div>
+            </div>
+          </div>
+        </div>
 
       </div>
 
