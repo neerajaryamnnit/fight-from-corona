@@ -1,5 +1,5 @@
 <section ng-app="FightWithCoronaApp" ng-controller="loginController" ng-init="init('<%= user_signed_in? %>')">
-  <div class="container-fluid">
+
     <!--    <div layout="row" layout-align="center">-->
     <!--      <b><label class="md-label" style="font-size: 20px">Fight with Corona</label></b>-->
     <!--    </div>-->
@@ -83,53 +83,62 @@
 
               <div class="card bg-light mb-3 card-success">
                 <div class="card-header">
-                    <span><%= t(:ask_for_login) %></span>
+                  <span><b><%= t(:ask_for_login) %></b></span>
 
                 </div>
                 <div class="card-body">
-                  <form class="form-inline" method="post" name="loginForm" novalidate action="send_otp" ng-submit="loginform.$valid && formValidate()">
+                  <form  method="post" name="loginForm" novalidate action="send_otp">
                     <%= csrf_meta_tag %>
                     <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
 
-                    <label><%= t(:name) %></label>
-                    <input type="text" name="name" class="form-control mb-2 mr-sm-2" id="inlineFormInputName2" placeholder="<%= t(:name_placehoder) %>" required>
+                    <div class="form-row mt-2">
 
+                        <label for="password"><%= t(:phone_number) %></label>
+                        <div class="input-group mb-2 mr-sm-2">
+                          <div class="input-group-prepend">
+                            <div class="input-group-text">Mob</div>
+                          </div>
+                          <input class="form-control" id="password" name="phone" maxlength="10" style="height: auto" type="text" placeholder="<%= t(:phone_number) %>" ng-keyup="lengthCount(this, 'phone')" aria-label="Phone Number" required>
 
-                    <label><%= t(:phone_number) %></label>
-                    <div class="input-group mb-2 mr-sm-2">
-                      <div class="input-group-prepend">
-                        <div class="input-group-text">Mob</div>
                       </div>
-                      <input class="form-control" name="phone" maxlength="10" style="height: auto" type="text" placeholder="<%= t(:phone_number) %>" ng-keyup="lengthCount(this, 'phone')" aria-label="Phone Number" required>
+
                     </div>
-                    <button type="submit" class="btn btn-primary mb-2"><%= t(:sent_otp) %></button>
+                    <div class="form-row mt-2">
+                      <button type="submit" class="btn btn-primary mb-2"><%= t(:sent_otp) %></button>
+                      <a href="sign-up" target="_parent"><button type="button" class="btn btn-success mb-2 ml-3"><%= t(:submit) %></button></a>
+                    </div>
+
                   </form>
                 </div>
 
               </div>
-
-
             <% end %>
             <% if @show_otp %>
+              <div class="card">
+                <form class="form" method="post"  action="verify_otp">
+                  <%= csrf_meta_tag %>
+                  <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+                  <input type="hidden" name="phone" hidden value="<%= @phone %>">
+                  <input type="hidden" name="token" hidden value="<%= @token %>">
+                  <div class="card-header">
+                    <label><b><%= t(:enter_otp) %></b></label>
+                  </div>
+                  <div class="card-body">
+                    <div class="form-row">
+                      <input autofocus class="form-control" name="otp" maxlength="6" style="height: auto" ng-model="user.otp" type="text" pattern="^[0-9]{6}$" title="<%= t("otp_validation") %>" required>
+                    </div>
+                    <div class="form-row mt-3">
+                      <div class="form-row">
+                        <button type="submit" class="btn btn-primary mb-2 ml-3"><%= t(:verify) %></button>
+                      </div>
+                      <div class="col-3">
+                        <button type="button" class="btn btn-primary mb-2 ml-3" ng-click="resendOTP(<%= @phone %>, '<%= @token %>', '<%= form_authenticity_token %>')"><%= t(:resend) %></button>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
 
-              <form class="form-inline" method="post" novalidate action="verify_otp" ng-submit="loginform.$valid && formValidate()">
-                <%= csrf_meta_tag %>
-                <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
-                <input type="hidden" name="phone" hidden value="<%= @phone %>">
-                <input type="hidden" name="token" hidden value="<%= @token %>">
-                <div class="col-md-3 mb-3">
-                  <label for="validationTooltip05"><%= t(:enter_otp) %></label>
-                  <input class="form-control" name="otp" maxlength="6" style="height: auto" ng-model="user.otp" type="text" ng-keyup="lengthCount(this, 'otp')">
-                </div>
-                <div class="form-row">
-                  <div class="col-6">
-                    <button type="submit" class="btn btn-primary mb-2 ml-3"><%= t(:verify) %></button>
-                  </div>
-                  <div class="col-3">
-                    <button type="button" class="btn btn-primary mb-2 ml-3" ng-click="resendOTP(<%= @phone %>, '<%= @token %>', '<%= form_authenticity_token %>')"><%= t(:resend) %></button>
-                  </div>
-                </div>
-              </form>
             <% end %>
 
           </div>
@@ -168,6 +177,6 @@
       </div>
 
     </div>
-  </div>
+
 
 </section>

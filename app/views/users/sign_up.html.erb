@@ -1,0 +1,54 @@
+<section>
+  <div class="card bg-light mb-3 card-success">
+    <div class="card-header">
+      <span><b><%= t(:ask_for_sign_up) %></b></span>
+
+    </div>
+    <div class="card-body">
+      <p id="error" style="color: #730E15"><%= flash[:error] %> </p>
+      <%= form_with(model: @user, method: "post", url: "sign-up", local: true) do |f| %>
+
+<!--      <form  method="post" name="loginForm" novalidate action="sign-up">-->
+        <%= csrf_meta_tag %>
+        <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+
+        <div class="form-row">
+          <label for="username" ><%= t(:name) %> *</label>
+          <%= f.text_field :name, id: "username", placeholder: t(:name_placehoder) + " *" , required: true, class: "form-control"%>
+<!--          <input type="text" name="name" class="form-control" id="username" placeholder="<%#= t(:name_placehoder) %>" required>-->
+        </div>
+
+        <div class="form-row mt-2">
+
+          <label for="mobile"><%= t(:phone_number) %> *</label>
+          <div class="input-group mb-2 mr-sm-2">
+            <div class="input-group-prepend">
+              <div class="input-group-text">Mob</div>
+            </div>
+            <%= f.text_field :mobile, class: "form-control", id: "mobile",  maxlength: "10", style: "height: auto",  placeholder:  t(:phone_number) + " *", required: true, pattern: '^[6789]\d{9}$', title: t('phone_validation') %>
+<!--            <input class="form-control" id="password" name="phone" maxlength="10" style="height: auto" type="text" placeholder="<%#= t(:phone_number) %>" ng-keyup="lengthCount(this, 'phone')" aria-label="Phone Number" required>-->
+
+          </div>
+        </div>
+        <div class="form-row mt-2">
+          <label for="pincode" ><%= t(:'issues.create.pincode') %> *</label>
+          <%= f.text_field :pincode, maxlength: "6",  class: "form-control", id:"pincode",  placeholder: t(:'issues.create.pincode') + " *",  required: true, pattern: '^[1-9][0-9]{5}$',  title: t('pincode_validation') %>
+        </div>
+        <div class="form-row mt-2">
+          <label for="thana" ><%= t(:'thana') %> *</label>
+          <%= f.text_field :thana,  class: "form-control", id: "thana",  placeholder: t(:'thana') + " *", required: true %>
+        </div>
+        <div class="form-row mt-2">
+          <label for="distinct" ><%= t(:'distict') %> *</label>
+          <%= f.text_field :district,  class: "form-control",  id: "thana",  placeholder: t(:'distict') + " *",  required: true %>
+        </div>
+
+        <div class="form-row mt-2">
+          <button type="submit" class="btn btn-primary mb-2"><%= t(:sent_otp) %></button>
+        </div>
+
+      <% end %>
+    </div>
+
+  </div>
+</section>

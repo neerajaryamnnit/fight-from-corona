@@ -32,12 +32,23 @@ class IssuesController < ApplicationController
   end
 
   def categories
-    categories = IssueCategory.all.order(:name)
+    categories = IssueCategory.all
+    if session[:locale].present?
+      categories = categories.select("issue_category_translations.name, issue_categories.id").joins(:issue_category_translations).where(issue_category_translations: {language: session[:locale]}).order("issue_category_translations.name")
+    else
+      categories = categories.select("name", :id).order("name asc")
+    end
+
     render status: 200, json: { message: "Category list", data: categories }
   end
 
   def sub_categories
     all = IssueSubCategory.all
+    if session[:locale].present?
+      all = all.select("issue_sub_category_translations.name, issue_sub_categories.id").joins(:issue_sub_category_translations).where(issue_sub_category_translations: {language: session[:locale]}).order("issue_sub_category_translations.name")
+    else
+      all = all.select("name", :id).order("name asc")
+    end
     if params[:category_id].present?
       all = all.where(issue_category_id: params[:category_id]).order(:name)
     end
