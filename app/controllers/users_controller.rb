@@ -20,7 +20,8 @@ class UsersController < ApplicationController
 
     user.generate_otp
     user.reload
-    HTTParty.get("http://m1.sarv.com/api/v2.0/sms_campaign.php?token=#{ENV['SMS_PASSWORD']}&user_id=#{ENV['SMS_USER']}&route=TR&template_id=2096&sender_id=#{ENV['SMS_SENDER_ID']}&language=EN&template=Your+OTP+code+is+#{user.otp}&contact_numbers=#{user.mobile}")
+    res = HTTParty.get("http://m1.sarv.com/api/v2.0/sms_campaign.php?token=#{ENV['SMS_PASSWORD']}&user_id=#{ENV['SMS_USER']}&route=TR&template_id=2096&sender_id=#{ENV['SMS_SENDER_ID']}&language=EN&template=Your+OTP+code+is+#{user.otp}&contact_numbers=#{user.mobile}")
+    puts res.body, res.code
     @phone = user.mobile
     @token = user.temp_token
     @show_otp = true
@@ -110,6 +111,12 @@ class UsersController < ApplicationController
       return
     end
 
+    unless params[:phone].present?
+      flash[:error] = t(:phone_validation)
+      render 'users/sign_up'
+      return
+    end
+
     unless params[:pincode].present?
       flash[:error] = t(:pincode_validation)
       render 'users/sign_up'
@@ -142,7 +149,7 @@ class UsersController < ApplicationController
     user.generate_otp
     user.reload
     HTTParty.get("http://m1.sarv.com/api/v2.0/sms_campaign.php?token=#{ENV['SMS_PASSWORD']}&user_id=#{ENV['SMS_USER']}&route=TR&template_id=2096&sender_id=#{ENV['SMS_SENDER_ID']}&language=EN&template=Your+OTP+code+is+#{user.otp}&contact_numbers=#{user.mobile}")
-    @phone = user.mobile
+    @phone = params[:phone].to_s
     @token = user.temp_token
     @show_otp = true
     render 'home/index'

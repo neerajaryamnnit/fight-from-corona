@@ -45,11 +45,10 @@ angular.module("controller.login", [])
             return false;
         };
 
-        $scope.resendOTP = function (phone, token, auth) {
+        $scope.resendOTP = function (phone, token) {
             let data =  {
                 phone: phone,
-                token: token,
-                authenticity_token: auth
+                token: token
             };
             LoginService.resend_otp(data).then(
                 (result) => {

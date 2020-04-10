@@ -87,7 +87,7 @@
 
                 </div>
                 <div class="card-body">
-                  <form  method="post" name="loginForm" novalidate action="send_otp">
+                  <form  method="post" name="loginForm" action="send_otp">
                     <%= csrf_meta_tag %>
                     <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
 
@@ -98,7 +98,7 @@
                           <div class="input-group-prepend">
                             <div class="input-group-text">Mob</div>
                           </div>
-                          <input class="form-control" id="password" name="phone" maxlength="10" style="height: auto" type="text" placeholder="<%= t(:phone_number) %>" ng-keyup="lengthCount(this, 'phone')" aria-label="Phone Number" required>
+                          <input class="form-control" id="password" name="phone" maxlength="10" style="height: auto" type="text" placeholder="<%= t(:phone_number) %>"  pattern='^[6789]\d{9}$' title="<%= t('phone_validation') %>" required>
 
                       </div>
 
@@ -131,8 +131,8 @@
                       <div class="form-row">
                         <button type="submit" class="btn btn-primary mb-2 ml-3"><%= t(:verify) %></button>
                       </div>
-                      <div class="col-3">
-                        <button type="button" class="btn btn-primary mb-2 ml-3" ng-click="resendOTP(<%= @phone %>, '<%= @token %>', '<%= form_authenticity_token %>')"><%= t(:resend) %></button>
+                      <div class="col-6">
+                        <button type="button" class="btn btn-primary mb-2 ml-3" ng-click="resendOTP(<%= @phone %>, '<%= @token %>')"><%= t(:resend) %></button>
                       </div>
                     </div>
                   </div>

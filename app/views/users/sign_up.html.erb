@@ -25,7 +25,7 @@
             <div class="input-group-prepend">
               <div class="input-group-text">Mob</div>
             </div>
-            <%= f.text_field :mobile, class: "form-control", id: "mobile",  maxlength: "10", style: "height: auto",  placeholder:  t(:phone_number) + " *", required: true, pattern: '^[6789]\d{9}$', title: t('phone_validation') %>
+            <%= f.text_field :phone, class: "form-control", id: "mobile",  maxlength: "10", style: "height: auto",  placeholder:  t(:phone_number) + " *", required: true, pattern: '^[6789]\d{9}$', title: t('phone_validation') %>
 <!--            <input class="form-control" id="password" name="phone" maxlength="10" style="height: auto" type="text" placeholder="<%#= t(:phone_number) %>" ng-keyup="lengthCount(this, 'phone')" aria-label="Phone Number" required>-->
 
           </div>
