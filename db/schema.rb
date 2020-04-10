@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_09_191731) do
+ActiveRecord::Schema.define(version: 2020_04_10_072857) do
 
   create_table "app_configs", force: :cascade do |t|
     t.string "key"
@@ -150,6 +150,16 @@ ActiveRecord::Schema.define(version: 2020_04_09_191731) do
     t.index ["issue_sub_category_id"], name: "index_issues_on_issue_sub_category_id"
     t.index ["resolved_by_id"], name: "index_issues_on_resolved_by_id"
     t.index ["user_id"], name: "index_issues_on_user_id"
+  end
+
+  create_table "sms_requests", force: :cascade do |t|
+    t.string "message"
+    t.string "phone"
+    t.string "response"
+    t.string "response_code"
+    t.string "request_url"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "users", force: :cascade do |t|

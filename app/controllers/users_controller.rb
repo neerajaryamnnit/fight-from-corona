@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   skip_forgery_protection
+  include UsersHelper
   def send_otp
 
     if request.method == "GET"
@@ -20,8 +21,7 @@ class UsersController < ApplicationController
 
     user.generate_otp
     user.reload
-    res = HTTParty.get("http://m1.sarv.com/api/v2.0/sms_campaign.php?token=#{ENV['SMS_PASSWORD']}&user_id=#{ENV['SMS_USER']}&route=TR&template_id=2096&sender_id=#{ENV['SMS_SENDER_ID']}&language=EN&template=Your+OTP+code+is+#{user.otp}&contact_numbers=#{user.mobile}")
-    puts res.body, res.code
+    send_otp_sms(user.mobile, user.otp)
     @phone = user.mobile
     @token = user.temp_token
     @show_otp = true
@@ -60,7 +60,7 @@ class UsersController < ApplicationController
 
     user.otp_created_at = DateTime.now
     user.save
-    HTTParty.get("http://m1.sarv.com/api/v2.0/sms_campaign.php?token=#{ENV['SMS_PASSWORD']}&user_id=#{ENV['SMS_USER']}&route=TR&template_id=2096&sender_id=#{ENV['SMS_SENDER_ID']}&language=EN&template=Your+OTP+code+is+#{user.otp}&contact_numbers=#{phone}")
+    send_otp_sms(user.mobile, user.otp)
     render json: { title: "Congratulation!" , message: "Your otp has been resent." }, status: 200
 
   end
@@ -148,7 +148,7 @@ class UsersController < ApplicationController
 
     user.generate_otp
     user.reload
-    HTTParty.get("http://m1.sarv.com/api/v2.0/sms_campaign.php?token=#{ENV['SMS_PASSWORD']}&user_id=#{ENV['SMS_USER']}&route=TR&template_id=2096&sender_id=#{ENV['SMS_SENDER_ID']}&language=EN&template=Your+OTP+code+is+#{user.otp}&contact_numbers=#{user.mobile}")
+    send_otp_sms(user.mobile, user.otp)
     @phone = params[:phone].to_s
     @token = user.temp_token
     @show_otp = true
@@ -158,5 +158,7 @@ class UsersController < ApplicationController
   def sign_up
 
   end
+
+
 
 end
