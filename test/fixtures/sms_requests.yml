@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  message: MyString
+  phone: 
+  response: 
+  response_code: MyString
+  request_url: MyString
+
+two:
+  message: MyString
+  phone: 
+  response: 
+  response_code: MyString
+  request_url: MyString

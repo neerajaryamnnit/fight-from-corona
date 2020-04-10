@@ -1,31 +1,28 @@
 class UsersController < ApplicationController
   skip_forgery_protection
+  include UsersHelper
   def send_otp
 
     if request.method == "GET"
       redirect_to root_path
       return
     end
-    if !params[:name].present? || !params[:name].strip.present?
-      redirect_to root_path, flash: { error: "Please provide your name." }
-      return
-    end
+
     if !params[:phone].present? || !params[:phone].strip.present?
       redirect_to root_path, flash: { error: "Please provide your phone number." }
       return
     end
-    phone = params[:phone].strip
-    name = params[:name].strip
-    email = phone+ "@fightfromcorona.com"
+
+    email = params[:phone].to_s + "@fightfromcorona.com"
     user = User.where(email: email).first
     if user.nil?
       user = User.create(email: email)
     end
-    user.name = name
-    user.mobile = phone
+    user.mobile = params[:phone]
+    user.save
     user.generate_otp
     user.reload
-    HTTParty.get("http://m1.sarv.com/api/v2.0/sms_campaign.php?token=#{ENV['SMS_PASSWORD']}&user_id=#{ENV['SMS_USER']}&route=TR&template_id=2096&sender_id=#{ENV['SMS_SENDER_ID']}&language=EN&template=Your+OTP+code+is+#{user.otp}&contact_numbers=#{phone}")
+    send_otp_sms(user.mobile, user.otp)
     @phone = user.mobile
     @token = user.temp_token
     @show_otp = true
@@ -64,7 +61,7 @@ class UsersController < ApplicationController
 
     user.otp_created_at = DateTime.now
     user.save
-    HTTParty.get("http://m1.sarv.com/api/v2.0/sms_campaign.php?token=#{ENV['SMS_PASSWORD']}&user_id=#{ENV['SMS_USER']}&route=TR&template_id=2096&sender_id=#{ENV['SMS_SENDER_ID']}&language=EN&template=Your+OTP+code+is+#{user.otp}&contact_numbers=#{phone}")
+    send_otp_sms(user.mobile, user.otp)
     render json: { title: "Congratulation!" , message: "Your otp has been resent." }, status: 200
 
   end
@@ -73,6 +70,7 @@ class UsersController < ApplicationController
 
     if request.method == "GET"
       redirect_to root_path
+      return
     end
 
     @phone = params[:phone].strip
@@ -102,7 +100,66 @@ class UsersController < ApplicationController
     unless I18n.available_locales.include?(params[:locale].to_sym)
       redirect_to root_path
     end
+    REDIS.set("LOCALE", params[:locale])
     session[:locale] = params[:locale]
     redirect_to root_path
   end
+
+  def sign_up_data
+    unless params[:name].present?
+      flash[:error] = t(:name_validation)
+      render 'users/sign_up'
+      return
+    end
+
+    unless params[:phone].present?
+      flash[:error] = t(:phone_validation)
+      render 'users/sign_up'
+      return
+    end
+
+    unless params[:pincode].present?
+      flash[:error] = t(:pincode_validation)
+      render 'users/sign_up'
+      return
+    end
+
+    unless params[:thana].present?
+      flash[:error] = t(:thana_validation)
+      render 'users/sign_up'
+      return
+      end
+    unless params[:district].present?
+      flash[:error] = t(:distinct_validation)
+      render 'users/sign_up'
+      return
+    end
+    email = params[:phone].to_s + "@fightfromcorona.com"
+    user = User.where(email: email).first
+    unless user.present?
+      user = User.new
+    end
+    user.name = params[:name]
+    user.mobile = params[:phone]
+    user.email = email
+    user.thana = params[:thana]
+    user.city = params[:district]
+    user.pincode = params[:pincode]
+    user.save
+
+    user.generate_otp
+    user.reload
+    send_otp_sms(user.mobile, user.otp)
+    @phone = params[:phone].to_s
+    @token = user.temp_token
+    @show_otp = true
+    render 'home/index'
+  end
+
+  def sign_up
+
+  end
+
+
+
 end

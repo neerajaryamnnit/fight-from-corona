@@ -1,20 +1,149 @@
 <section ng-app="FightWithCoronaApp" ng-controller="loginController" ng-init="init('<%= user_signed_in? %>')">
-  <div class="container-fluid">
+
     <!--    <div layout="row" layout-align="center">-->
     <!--      <b><label class="md-label" style="font-size: 20px">Fight with Corona</label></b>-->
     <!--    </div>-->
+
+    <div class="flex-row">
+<!--    <div class="d-flex flex-column  mt-3 justify-content-center">-->
+<!--      <p class="blockquote"><%#= t 'pm_message_1' %>-->
+<!--      </p>-->
+<!--      <div class="flex-row " style="text-align: end">-->
+<!--        <h1 class="blockquote-footer "><%#= t 'honorable_pm' %></h1>-->
+<!--      </div>-->
+<!--    </div>-->
+    </div>
     <div layout="row" layout-align="center center">
       <%#= image_tag("india", :alt => "rss feed", size: "48x48") %>
       <picture>
         <%= image_tag("udaipur.png", class: "img-fluid img-thumbnail") %>
       </picture>
+<!--      <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">-->
+<!--        <ol class="carousel-indicators">-->
+<!--          <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>-->
+<!--          <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>-->
+<!--          <li data-target="#carouselExampleIndicators" data-slide-to= "2"></li>-->
+<!--        </ol>-->
+<!--        <div class="carousel-inner">-->
+<!--          <div class="carousel-item active">-->
+            <%#= image_tag("slider/slider-1.png", class: "d-block w-60", alt: "First Slide") %>
+<!--          </div>-->
+<!--          <div class="carousel-item">-->
+            <%#= image_tag("slider/slider-2.png", class: "d-block w-60", alt: "2 Slide") %>
+
+<!--          </div>-->
+<!--          <div class="carousel-item">-->
+            <%#= image_tag("slider/slider-3.png", class: "d-block w-60", alt: "3 Slide") %>
+<!--          </div>-->
+<!--        </div>-->
+<!--        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">-->
+<!--          <span class="carousel-control-prev-icon" aria-hidden="true"></span>-->
+<!--          <span class="sr-only">Previous</span>-->
+<!--        </a>-->
+<!--        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">-->
+<!--          <span class="carousel-control-next-icon" aria-hidden="true"></span>-->
+<!--          <span class="sr-only">Next</span>-->
+<!--        </a>-->
+<!--      </div>-->
+
     </div>
     <% if user_signed_in? %>
       <div layout="row" layout-align="center center">
 
       </div>
     <% end %>
-    <div class="mt-2" layout="row" layout-align="center center">
+
+        <% if user_signed_in? %>
+      <div class="card mt-4">
+        <div class="card-header">
+          <%= t('username_html', name: current_user.name) %>
+        </div>
+        <div class="card-body">
+          <div class="card-text"><%= t('now_you_can_help') %></div>
+
+          <div class="card-subtitle mt-3"><b><%= t('choose_option') %> </b></div>
+          <div class="d-flex mt-3 flex-row justify-content-center" >
+
+            <a class="d-flex " href="issues/list" target="_parent">
+              <button class="btn btn-primary"><%= t(:ask_for_help) %></button>
+            </a>
+            <a class="d-flex flex-offset-10" href="issues/want_to_help" target="_parent" >
+              <button class="btn btn-primary"><%= t(:want_to_help) %></button>
+            </a>
+          </div>
+        </div>
+
+      </div>
+
+        <% else %>
+
+          <p id="error"><%= flash[:error] %></p>
+          <div layout="column" layout-align="center">
+            <% unless @show_otp %>
+
+              <div class="card bg-light mb-3 card-success">
+                <div class="card-header">
+                  <span><b><%= t(:ask_for_login) %></b></span>
+
+                </div>
+                <div class="card-body">
+                  <form  method="post" name="loginForm" action="send_otp">
+                    <%= csrf_meta_tag %>
+                    <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+
+                    <div class="form-row mt-2">
+
+                        <label for="password"><%= t(:phone_number) %></label>
+                        <div class="input-group mb-2 mr-sm-2">
+                          <div class="input-group-prepend">
+                            <div class="input-group-text">Mob</div>
+                          </div>
+                          <input class="form-control" id="password" name="phone" maxlength="10" style="height: auto" type="text" placeholder="<%= t(:phone_number) %>"  pattern='^[6789]\d{9}$' title="<%= t('phone_validation') %>" required>
+
+                      </div>
+
+                    </div>
+                    <div class="form-row mt-2">
+                      <button type="submit" class="btn btn-primary mb-2"><%= t(:sent_otp) %></button>
+                      <a href="sign-up" target="_parent"><button type="button" class="btn btn-success mb-2 ml-3"><%= t(:submit) %></button></a>
+                    </div>
+
+                  </form>
+                </div>
+
+              </div>
+            <% end %>
+            <% if @show_otp %>
+              <div class="card">
+                <form class="form" method="post"  action="verify_otp">
+                  <%= csrf_meta_tag %>
+                  <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+                  <input type="hidden" name="phone" hidden value="<%= @phone %>">
+                  <input type="hidden" name="token" hidden value="<%= @token %>">
+                  <div class="card-header">
+                    <label><b><%= t(:enter_otp) %></b></label>
+                  </div>
+                  <div class="card-body">
+                    <div class="form-row">
+                      <input autofocus class="form-control" name="otp" maxlength="6" style="height: auto" ng-model="user.otp" type="text" pattern="^[0-9]{6}$" title="<%= t("otp_validation") %>" required>
+                    </div>
+                    <div class="form-row mt-3">
+                      <div class="form-row">
+                        <button type="submit" class="btn btn-primary mb-2 ml-3"><%= t(:verify) %></button>
+                      </div>
+                      <div class="col-6">
+                        <button type="button" class="btn btn-primary mb-2 ml-3" ng-click="resendOTP(<%= @phone %>, '<%= @token %>')"><%= t(:resend) %></button>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+
+            <% end %>
+
+          </div>
+        <% end %>
+    <div class="mt-5" layout="row" layout-align="center center">
       <%#= image_tag("india", :alt => "rss feed", size: "48x48") %>
       <h4><%= t(:corona_stats) %></h4>
     </div>
@@ -22,94 +151,32 @@
       <div layout="column" layout-align="center">
         <div layout="row">
           <div layout="column" flex="50" layout-align="center center">
-            <div class="stats total"><h5><%= t(:confirmed) %></h5>
-              <div class="stats-bottom"><h1><%= daily_case.total || 0 %></h1><h6></h6></div>
+            <div class="stats total"><h6><%= t(:confirmed) %></h6>
+              <div class="stats-bottom"><h4><%= daily_case.total || 0 %></h4><h6></h6></div>
             </div>
           </div>
           <div layout="column" flex="50" flex-offset="5" layout-align="center center">
-            <div class="stats active"><h5><%= t(:active) %></h5>
-              <div class="stats-bottom"><h1><%= daily_case.active || 0 %></h1><h6></h6></div>
+            <div class="stats active"><h6><%= t(:active) %></h6>
+              <div class="stats-bottom"><h4><%= daily_case.active || 0 %></h4><h6></h6></div>
             </div>
           </div>
         </div>
         <div layout="row">
           <div layout="column" flex="50" layout-align="center center">
-            <div class="stats recover"><h5><%= t(:recovered) %></h5>
-              <div class="stats-bottom"><h1><%= daily_case.recover || 0 %></h1><h6></h6></div>
+            <div class="stats recover"><h6><%= t(:recovered) %></h6>
+              <div class="stats-bottom"><h4><%= daily_case.recover || 0 %></h4><h6></h6></div>
             </div>
           </div>
           <div layout="column" flex="50" flex-offset="5" layout-align="center center">
-            <div class="stats deceased"><h5><%= t(:deceased) %></h5>
-              <div class="stats-bottom"><h1><%= daily_case.deceased || 0 %></h1><h6></h6></div>
+            <div class="stats deceased"><h6><%= t(:deceased) %></h6>
+              <div class="stats-bottom"><h4><%= daily_case.deceased || 0 %></h4><h6></h6></div>
             </div>
           </div>
         </div>
-        <% if user_signed_in? %>
-          <div layout="row" layout-align="center">
-            <a flex="50" href="issues/list" target="_parent">
-              <md-button class="md-raised md-primary"><%= t(:ask_for_help) %></md-button>
-            </a>
-            <a flex="50" href="issues/want_to_help" target="_parent" >
-              <md-button class="md-raised md-primary"><%= t(:want_to_help) %></md-button>
-            </a>
-          </div>
-        <% else %>
-          <div layout="row" layout-align="center">
-            <span><%= t(:ask_for_login) %></span>
-          </div>
-          <p id="error"><%= flash[:error] %></p>
-          <div layout="column" layout-align="center">
-            <% unless @show_otp %>
-
-              <form class="form-inline" method="post" name="loginForm" novalidate action="send_otp" ng-submit="loginform.$valid && formValidate()">
-                <%= csrf_meta_tag %>
-                <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
-
-                <label><%= t(:name) %></label>
-                <input type="text" name="name" class="form-control mb-2 mr-sm-2" id="inlineFormInputName2" placeholder="<%= t(:name_placehoder) %>" required>
-
-
-                <label class="sr-only" for="inlineFormInputGroupUsername2"><%= t(:phone_number) %></label>
-                <div class="input-group mb-2 mr-sm-2">
-                  <div class="input-group-prepend">
-                    <div class="input-group-text">Mob</div>
-                  </div>
-                  <input class="form-control" name="phone" maxlength="10" style="height: auto" type="text" placeholder="<%= t(:phone_number) %>" ng-keyup="lengthCount(this, 'phone')" aria-label="Phone Number" required>
-                </div>
-                <button type="submit" class="btn btn-primary mb-2"><%= t(:sent_otp) %></button>
-              </form>
-
-            <% end %>
-            <% if @show_otp %>
-
-              <form class="form-inline" method="post" novalidate action="verify_otp" ng-submit="loginform.$valid && formValidate()">
-                <%= csrf_meta_tag %>
-                <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
-                <input type="hidden" name="phone" hidden value="<%= @phone %>">
-                <input type="hidden" name="token" hidden value="<%= @token %>">
-                <div class="col-md-3 mb-3">
-                  <label for="validationTooltip05"><%= t(:enter_otp) %></label>
-                  <input class="form-control" name="otp" maxlength="6" style="height: auto" ng-model="user.otp" type="text" ng-keyup="lengthCount(this, 'otp')">
-                </div>
-                <div class="form-row">
-                  <div class="col-6">
-                    <button type="submit" class="btn btn-primary mb-2 ml-3"><%= t(:verify) %></button>
-                  </div>
-                  <div class="col-3">
-                    <button type="button" class="btn btn-primary mb-2 ml-3" ng-click="resendOTP(<%= @phone %>, '<%= @token %>', '<%= form_authenticity_token %>')"><%= t(:resend) %></button>
-                  </div>
-                </div>
-              </form>
-
-            <% end %>
-
-          </div>
-        <% end %>
-
 
       </div>
 
     </div>
-  </div>
+
 
 </section>

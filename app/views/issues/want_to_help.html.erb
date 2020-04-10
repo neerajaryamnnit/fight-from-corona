@@ -1,5 +1,4 @@
-<section class="container" ng-controller="wantToHelpController">
-  <div class="d-flex justify-content-center">
+<section  ng-controller="wantToHelpController">
 
     <div class="d-flex flex-column mt-1">
       <div class="d-flex flex-row justify-content-between">
@@ -13,7 +12,7 @@
         </div>
       </div>
       <% if @issues.count == 0 %>
-        <div class="card border-secondary mb-3 mt-3" style="max-width: 18rem;">
+        <div class="card border-secondary mb-3 mt-3" >
           <div class="card-body text-secondary">
             <p class="card-text"><%= t '.no_issue' %></p>
             <a href="javascript:history.back()" target="_parent">
@@ -25,7 +24,7 @@
       <br>
       <% @issues.each_with_index do |issue, index| %>
         <% unless issue.resolved? %>
-          <div class="card border-secondary mb-3" style="max-width: 18rem;">
+          <div class="card border-secondary mb-3" >
             <div class="card-header">
               <div class="row">
                 <div class="col-9">
@@ -51,11 +50,11 @@
               </div>
             </div>
             <div class="card-footer bg-transparent border-secondary">
-              <% if issue.helping? %>
-                <small class="text-muted"><%= t('.someone_helping_html', name: issue.resolved_by.name )  %></small>
-              <% end %>
+              <%# if issue.helping? %>
+<!--                <small class="text-muted"><%#= t('.someone_helping_html', name: issue.resolved_by.name )  %></small>-->
+              <%# end %>
 
-              <% if issue.open? %>
+              <% if issue.open? || issue.helping? %>
                 <small class="text-muted"><%= time_ago_in_words(issue.created_at) %> ago</small>
                 <div class="row mt-1">
                   <div class="col-9" style="text-align: start">
@@ -67,9 +66,9 @@
                     </a>
                   </div>
                   <div class="col-3">
-                    <a href="tel:<%= issue.user.mobile %>" ng-click="callPressed( <%= issue.id %>)">
-                        <small><%= t '.call' %></small>
-                    </a>
+<!--                    <a href="tel:<%#= issue.user.mobile %>" ng-click="callPressed( <%#= issue.id %>)">-->
+<!--                        <small><%#= t '.call' %></small>-->
+<!--                    </a>-->
                   </div>
                 </div>
               <% end %>
@@ -79,6 +78,5 @@
       <% end %>
     </div>
 
-  </div>
 
 </section>

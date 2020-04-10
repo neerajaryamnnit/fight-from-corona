@@ -108,7 +108,8 @@ angular.module("controller.issue", [])
             })
         };
 
-        $scope.init = function () {
+        $scope.init = function (pincode) {
+            $scope.selection.pincode = pincode;
             $scope.getCoords().then((status) => {
                 console.log("Permission status");
                 console.log(status);
@@ -129,7 +130,7 @@ angular.module("controller.issue", [])
         $scope.createIssue = function () {
 
             if ($scope.selection.category == null) {
-                toaster.error({title: "Missing Option", body: "Looks like you have not selected the category"});
+                toaster.error({title: "Missing", body: "Looks like you have not selected the category"});
                 return;
             }
             if (!$scope.selection.name || $scope.selection.name.length === 0) {
@@ -211,7 +212,7 @@ angular.module("controller.issue", [])
         $scope.removeIssue = function(issue_id) {
             $scope.loading[issue_id] = true;
             let data = {id: issue_id};
-            IssueService.removeIssue(data).then((result)=> {
+            IssueService.removeIssue(data).then((result) => {
                 $scope.loading[issue_id] = false;
                 BaseService.success(result);
                 window.location.href = "/issues/list";1
@@ -229,7 +230,7 @@ angular.module("controller.issue", [])
             };
             console.log(data);
             IssueService.callPressed(data).then((result)=>{
-                console.log(result);
+
             }, (error) => {
                 BaseService.error(error)
             })

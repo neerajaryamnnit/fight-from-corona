@@ -15,7 +15,12 @@
   <body ng-app="FightWithCoronaApp">
     <main>
       <%= render 'layouts/header' %>
-      <%= yield %>
+        <div class="d-flex justify-content-center" style="margin-top: 4.5rem !important;">
+          <div class="flex-column flex-lg-40 flex-sm-column">
+            <%= yield %>
+          </div>
+
+        </div>
     </main>
 
   </body>

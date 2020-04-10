@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class ApplicationController < ActionController::Base
   include ApplicationHelper
   helper_method :current_user
@@ -26,7 +27,11 @@ class ApplicationController < ActionController::Base
   end
 
   def switch_locale(&action)
-    locale = session[:locale].present? ? session[:locale] : I18n.default_locale
+    locale = if session[:locale].present?
+      session[:locale]
+    else
+      session[:locale] = I18n.default_locale 
+             end
     I18n.with_locale(locale, &action)
   end
 end

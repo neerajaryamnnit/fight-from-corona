@@ -7,12 +7,20 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 
-issue_subs = [{name: "Need Medical Help", category: "Medical"}, {name: "Need Grocery Help", category: "Grocery"}, {name: "Need Baby Milk", category: "Grocery"}]
-
 require 'csv'
-csv_text = File.read('db/categories.csv')
+csv_text = File.read('db/catego.csv')
 csv = CSV.parse(csv_text, :headers => true)
 csv.each do |row|
   category = IssueCategory.where(name: row[0]).first_or_create!
-  IssueSubCategory.where(name: row[1], issue_category_id: category.id).first_or_create!
+  IssueCategoryTranslation.where(name: row[0], issue_category_id: category.id, language: "en").first_or_create!
+  IssueCategoryTranslation.where(name: row[1], issue_category_id: category.id, language: "hn").first_or_create!
+  issue_sub = IssueSubCategory.where(name: row[1], issue_category_id: category.id).first_or_create!
+  IssueSubCategoryTranslation.where(name: row[2], issue_sub_category_id: issue_sub.id, language: "en").first_or_create!
+  IssueSubCategoryTranslation.where(name: row[3], issue_sub_category_id: issue_sub.id, language: "hn").first_or_create!
 end
+
+env_value = { LOCALE: "en"  }
+env_value.keys.each do |key|
+  AppConfig.where(key: key, value: env_value[key]).first_or_create!
+end
+
