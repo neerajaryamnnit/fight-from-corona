@@ -18,7 +18,8 @@ class UsersController < ApplicationController
     if user.nil?
       user = User.create(email: email)
     end
-
+    user.mobile = params[:phone]
+    user.save
     user.generate_otp
     user.reload
     send_otp_sms(user.mobile, user.otp)
