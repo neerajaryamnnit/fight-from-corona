@@ -31,6 +31,24 @@ class IssuesController < ApplicationController
     end
   end
 
+  def getIssues
+    category = params[:category]
+    subCategory = params[:sub_category]
+    if category.present?
+      issues = Issue.where(issue_category_id: category)
+    end
+    if subCategory.present?
+      issues = Issue.where(issue_sub_category_id: subCategory)
+    end
+    if params[:date_range].present?
+      date = params[:date_range]&.to_datetime
+      puts date
+      issues = Issue.where(reported_at: date)
+    end
+    render json: {title: "List Generated", message: "Filtered Issues", data: issues},state:200
+
+  end
+
   def categories
     categories = IssueCategory.all.order(:name)
     render status: 200, json: { message: "Category list", data: categories }

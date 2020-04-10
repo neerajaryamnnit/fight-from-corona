@@ -20,4 +20,6 @@ Rails.application.routes.draw do
   post "issues/issue_help"
   get "issues/search_issues"
   get "users/change_locale"
+  post "issues/getIssues"
+  get "dashboard" => "dashboard#dashboard"
 end

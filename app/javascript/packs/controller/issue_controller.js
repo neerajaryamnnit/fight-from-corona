@@ -269,3 +269,4 @@ angular.module("controller.issue", [])
     }
 
 }]);
+
