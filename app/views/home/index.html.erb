@@ -147,34 +147,34 @@
       <%#= image_tag("india", :alt => "rss feed", size: "48x48") %>
       <h4><%= t(:corona_stats) %></h4>
     </div>
-    <div layout="row" layout-align="center center">
-      <div layout="column" layout-align="center">
-        <div layout="row">
-          <div layout="column" flex="50" layout-align="center center">
-            <div class="stats total"><h6><%= t(:confirmed) %></h6>
-              <div class="stats-bottom"><h4><%= daily_case.total || 0 %></h4><h6></h6></div>
-            </div>
-          </div>
-          <div layout="column" flex="50" flex-offset="5" layout-align="center center">
-            <div class="stats active"><h6><%= t(:active) %></h6>
-              <div class="stats-bottom"><h4><%= daily_case.active || 0 %></h4><h6></h6></div>
-            </div>
-          </div>
-        </div>
-        <div layout="row">
-          <div layout="column" flex="50" layout-align="center center">
-            <div class="stats recover"><h6><%= t(:recovered) %></h6>
-              <div class="stats-bottom"><h4><%= daily_case.recover || 0 %></h4><h6></h6></div>
-            </div>
-          </div>
-          <div layout="column" flex="50" flex-offset="5" layout-align="center center">
-            <div class="stats deceased"><h6><%= t(:deceased) %></h6>
-              <div class="stats-bottom"><h4><%= daily_case.deceased || 0 %></h4><h6></h6></div>
-            </div>
-          </div>
-        </div>
+<!--    <div layout="row" layout-align="center center">-->
+<!--      <div layout="column" layout-align="center">-->
+<!--        <div layout="row">-->
+<!--          <div layout="column" flex="50" layout-align="center center">-->
+<!--            <div class="stats total"><h6><%#= t(:confirmed) %></h6>-->
+<!--              <div class="stats-bottom"><h4><%#= daily_case.total || 0 %></h4><h6></h6></div>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--          <div layout="column" flex="50" flex-offset="5" layout-align="center center">-->
+<!--            <div class="stats active"><h6><%#= t(:active) %></h6>-->
+<!--              <div class="stats-bottom"><h4><%#= daily_case.active || 0 %></h4><h6></h6></div>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--        <div layout="row">-->
+<!--          <div layout="column" flex="50" layout-align="center center">-->
+<!--            <div class="stats recover"><h6><%#= t(:recovered) %></h6>-->
+<!--              <div class="stats-bottom"><h4><%#= daily_case.recover || 0 %></h4><h6></h6></div>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--          <div layout="column" flex="50" flex-offset="5" layout-align="center center">-->
+<!--            <div class="stats deceased"><h6><%#= t(:deceased) %></h6>-->
+<!--              <div class="stats-bottom"><h4><%#= daily_case.deceased || 0 %></h4><h6></h6></div>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
 
-      </div>
+<!--      </div>-->
 
     </div>
 

@@ -160,6 +160,14 @@ class UsersController < ApplicationController
 
   end
 
+  def update_profile_data
+    current_user.name = params[:name]
+    current_user.pincode = params[:pincode] if [:pincode].present?
+    current_user.thana = params[:thana] if [:thana].present?
+    current_user.district = params[:district] if [:district].present?
+    current_user.save
+    redirect_to root_path
+  end
 
 
 end
