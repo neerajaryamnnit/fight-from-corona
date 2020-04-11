@@ -21,10 +21,11 @@ angular.module("controller.dashboard", [])
 
     }])
     .controller("dashboardController",["$scope", "toaster", "IssueService","dashboardService" ,function ($scope, toaster, IssueService,dashboardService){
-        $scope.optionCategory = [];
+        $scope.option_category = [];
         $scope.sub_categories = [];
         $scope.selection = {};
         $scope.issues = [];
+
 
         $scope.onCategoryChange = function () {
             console.log($scope.selection.category);
@@ -34,13 +35,30 @@ angular.module("controller.dashboard", [])
                 console.log(error)
             })
         };
+
+        $scope.get_category = function(id){
+            for (let category of $scope.option_category){
+                if( category.id === id)
+                {
+                    return category.name;
+                    break;
+                }
+            }
+        };
+
         $scope.init = function () {
+            console.log("here")
             IssueService.categories().then((data) => {
-                $scope.optionCategory = data.data;
+                console.log("working",data.data)
+                $scope.option_category = data.data;
             }, (error) => {
                 console.log(error)
             })
         };
+
+        $scope.clear = function(){
+            window.location.reload();
+        }
 
         $scope.getIssues = function () {
             dashboardService.getIssues($scope.selection).then((data) => {
@@ -50,6 +68,7 @@ angular.module("controller.dashboard", [])
             }, (error) => {
             console.log(error)
         })};
+
         $scope.init();
 
     }]);

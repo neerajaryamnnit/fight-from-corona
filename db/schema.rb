@@ -10,7 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_05_073620) do
+ActiveRecord::Schema.define(version: 2020_04_10_072857) do
+
+  create_table "app_configs", force: :cascade do |t|
+    t.string "key"
+    t.string "value"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "blazer_audits", force: :cascade do |t|
     t.integer "user_id"
@@ -95,6 +102,15 @@ ActiveRecord::Schema.define(version: 2020_04_05_073620) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "issue_category_translations", force: :cascade do |t|
+    t.string "name"
+    t.string "language"
+    t.integer "issue_category_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["issue_category_id"], name: "index_issue_category_translations_on_issue_category_id"
+  end
+
   create_table "issue_sub_categories", force: :cascade do |t|
     t.string "name"
     t.string "description"
@@ -102,6 +118,15 @@ ActiveRecord::Schema.define(version: 2020_04_05_073620) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["issue_category_id"], name: "index_issue_sub_categories_on_issue_category_id"
+  end
+
+  create_table "issue_sub_category_translations", force: :cascade do |t|
+    t.string "name"
+    t.string "language"
+    t.integer "issue_sub_category_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["issue_sub_category_id"], name: "index_issue_sub_category_translations_on_issue_sub_category_id"
   end
 
   create_table "issues", force: :cascade do |t|
@@ -125,6 +150,16 @@ ActiveRecord::Schema.define(version: 2020_04_05_073620) do
     t.index ["issue_sub_category_id"], name: "index_issues_on_issue_sub_category_id"
     t.index ["resolved_by_id"], name: "index_issues_on_resolved_by_id"
     t.index ["user_id"], name: "index_issues_on_user_id"
+  end
+
+  create_table "sms_requests", force: :cascade do |t|
+    t.string "message"
+    t.string "phone"
+    t.string "response"
+    t.string "response_code"
+    t.string "request_url"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "users", force: :cascade do |t|
@@ -152,12 +187,19 @@ ActiveRecord::Schema.define(version: 2020_04_05_073620) do
     t.datetime "locked_at"
     t.datetime "otp_created_at"
     t.string "password_digest"
+    t.string "pincode"
+    t.string "thana"
+    t.string "city"
+    t.string "state"
+    t.string "language"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
   add_foreign_key "issue_activities", "issues"
   add_foreign_key "issue_activities", "users", column: "creator_id"
+  add_foreign_key "issue_category_translations", "issue_categories"
+  add_foreign_key "issue_sub_category_translations", "issue_sub_categories"
   add_foreign_key "issues", "issue_categories"
   add_foreign_key "issues", "issue_sub_categories"
   add_foreign_key "issues", "users"

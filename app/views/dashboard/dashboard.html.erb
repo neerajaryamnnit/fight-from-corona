@@ -1,6 +1,6 @@
 <section class="container" ng-controller="dashboardController">
 <h1>View Community help requests</h1>
-<form class="mt-5">
+<form class="mt-5" name ="myform">
   <label>Select search parameters:</label>
   <div class="row">
     <div class="col-6">
@@ -18,7 +18,7 @@
     <select
       ng-model="selection.category"
       ng-change="onCategoryChange()"
-      ng-options="value.id as value.name group by value.group for value in optionCategory">
+      ng-options="value.id as value.name group by value.group for value in option_category">
       <option>__</option>
     </select>
 
@@ -52,12 +52,15 @@
       </thead>
     <tr ng-repeat="issue in issues">
       <td>{{ issue.name}}</td>
-      <td>{{issue.reported_at}}</td>
+      <td>{{issue.created_at}}</td>
       <td>{{issue.phone}}</td>
       <td>{{issue.address}}</td>
-      <td>{{issue.issue_category_id}}</td>
+      <td>{{get_category(issue.issue_category_id)}}</td>
       <td>{{issue.description}}</td>
     </tr>
   </table>
+    <div style="margin-left: 500px">
+    <button ng-click="clear()">Clear</button>
+    </div>
   </div>
 </section>
