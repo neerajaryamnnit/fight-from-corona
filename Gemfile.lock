@@ -1,7 +1,7 @@
 GEM
   remote: https://rubygems.org/
   specs:
-    aasm (5.0.6)
+    aasm (5.0.8)
       concurrent-ruby (~> 1.0)
     actioncable (6.0.2.2)
       actionpack (= 6.0.2.2)
@@ -71,7 +71,7 @@ GEM
       msgpack (~> 1.0)
     builder (3.2.4)
     byebug (11.1.1)
-    capybara (3.32.0)
+    capybara (3.32.1)
       addressable
       mini_mime (>= 0.1.3)
       nokogiri (~> 1.8)
@@ -95,7 +95,7 @@ GEM
       railties (>= 3.2, < 6.1)
     errbase (0.2.0)
     erubi (1.9.0)
-    ffi (1.12.2)
+    ffi (1.12.2-x64-mingw32)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
     httparty (0.18.0)
@@ -112,7 +112,7 @@ GEM
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
       ruby_dep (~> 1.2)
-    loofah (2.4.0)
+    loofah (2.5.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
     mail (2.7.1)
@@ -128,14 +128,14 @@ GEM
     mini_mime (1.0.2)
     mini_portile2 (2.4.0)
     minitest (5.14.0)
-    msgpack (1.3.3)
+    msgpack (1.3.3-x64-mingw32)
     multi_xml (0.6.0)
     nio4r (2.5.2)
-    nokogiri (1.10.9)
+    nokogiri (1.10.9-x64-mingw32)
       mini_portile2 (~> 2.4.0)
     orm_adapter (0.5.0)
-    pg (1.2.2)
-    public_suffix (4.0.3)
+    pg (1.2.3-x64-mingw32)
+    public_suffix (4.0.4)
     puma (4.3.3)
       nio4r (~> 2.0)
     rack (2.2.2)
@@ -186,7 +186,7 @@ GEM
       errbase (>= 0.1.1)
     sass-rails (6.0.0)
       sassc-rails (~> 2.1, >= 2.1.1)
-    sassc (2.2.1)
+    sassc (2.2.1-x64-mingw32)
       ffi (~> 1.9)
     sassc-rails (2.1.2)
       railties (>= 4.0.0)
@@ -215,8 +215,10 @@ GEM
     turbolinks (5.2.1)
       turbolinks-source (~> 5.2)
     turbolinks-source (5.2.0)
-    tzinfo (1.2.6)
+    tzinfo (1.2.7)
       thread_safe (~> 0.1)
+    tzinfo-data (1.2019.3)
+      tzinfo (>= 1.0.0)
     warden (1.2.8)
       rack (>= 2.0.6)
     web-console (4.0.1)
@@ -240,7 +242,7 @@ GEM
     zeitwerk (2.3.0)
 
 PLATFORMS
-  ruby
+  x64-mingw32
 
 DEPENDENCIES
   aasm
@@ -270,7 +272,7 @@ DEPENDENCIES
   webpacker (~> 4.0)
 
 RUBY VERSION
-   ruby 2.5.3p105
+   ruby 2.6.5p114
 
 BUNDLED WITH
-   1.17.3
+   1.17.2

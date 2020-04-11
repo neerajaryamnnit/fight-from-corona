@@ -17,8 +17,9 @@ require("./controller/login.js");
 require("angular-sanitize");
 require("ui-select");
 require("./angular.js");
-require("./controller/issue_controller");
-require("angularjs-toaster")
+require("./controller/issue_controller.js");
+require("angularjs-toaster");
+require("./controller/dashboard.js");
 
 
 

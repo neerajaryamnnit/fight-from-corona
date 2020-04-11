@@ -1,0 +1,66 @@
+<section class="container" ng-controller="dashboardController">
+<h1>View Community help requests</h1>
+<form class="mt-5" name ="myform">
+  <label>Select search parameters:</label>
+  <div class="row">
+    <div class="col-6">
+  <lable for="distance" style="margin-right: 10px">Distance kms</lable>
+  <input type="number" ng-model="selection.distance" id="distance" style="margin-right: 50px; width: 50px">
+    </div>
+    <div class="col-6">
+      <label style="margin-right: 30px">Date range</label>
+    <input type="date"  ng-model="selection.date_range" >
+    </div>
+    </div>
+  <div class="row">
+    <div class="col-6">
+    <label style="margin-right: 40px">Category</label>
+    <select
+      ng-model="selection.category"
+      ng-change="onCategoryChange()"
+      ng-options="value.id as value.name group by value.group for value in option_category">
+      <option>__</option>
+    </select>
+
+    </div>
+    <div class="col">
+    <label style="margin-right: 10px">Sub Category</label>
+    <select ng-model="selection.sub_category" ng-options="value.id as value.name group by value.group for value in sub_categories">
+      <option disabled selected>Option</option>
+    </select>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col" style="padding-left: 400px">
+  <button ng-click="getIssues()">Submit</button>
+  <button style="margin-left: 100px">Download as CSV</button>
+    </div>
+  </div>
+</form>
+  <div class="row mt-5"  ng-if="issues.length > 0">
+
+  <table style="width:100%" border="1">
+    <tr>
+      <thead>
+      <th>Name</th>
+      <th>Date</th>
+      <th>Phone</th>
+      <th>Address</th>
+      <th>Category</th>
+      <th>Description</th>
+    </tr>
+      </thead>
+    <tr ng-repeat="issue in issues">
+      <td>{{ issue.name}}</td>
+      <td>{{issue.created_at}}</td>
+      <td>{{issue.phone}}</td>
+      <td>{{issue.address}}</td>
+      <td>{{get_category(issue.issue_category_id)}}</td>
+      <td>{{issue.description}}</td>
+    </tr>
+  </table>
+    <div style="margin-left: 500px">
+    <button ng-click="clear()">Clear</button>
+    </div>
+  </div>
+</section>
