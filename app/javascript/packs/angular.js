@@ -1,6 +1,7 @@
 app = angular.module("FightWithCoronaApp", [
     "controller.login",
     "controller.issue",
+    "controller.dashboard",
     "ngMaterial",
     "ngMessages",
     "ngSanitize",

@@ -270,3 +270,4 @@ angular.module("controller.issue", [])
     }
 
 }]);
+
