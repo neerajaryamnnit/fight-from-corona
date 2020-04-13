@@ -25,6 +25,10 @@ angular.module("controller.dashboard", [])
         $scope.sub_categories = [];
         $scope.selection = {};
         $scope.issues = [];
+        $scope.page = 1;
+        $scope.offset = 0;
+        $scope.limit = 4;
+        $scope.length;
 
 
         $scope.onCategoryChange = function () {
@@ -32,7 +36,7 @@ angular.module("controller.dashboard", [])
             IssueService.sub_categories($scope.selection.category).then((data) => {
                 $scope.sub_categories = data.data;
             }, (error) => {
-                console.log(error)
+                toaster.error(error)
             })
         };
 
@@ -47,12 +51,10 @@ angular.module("controller.dashboard", [])
         };
 
         $scope.init = function () {
-            console.log("here")
             IssueService.categories().then((data) => {
-                console.log("working",data.data)
                 $scope.option_category = data.data;
             }, (error) => {
-                console.log(error)
+                toaster.error(error)
             })
         };
 
@@ -61,13 +63,36 @@ angular.module("controller.dashboard", [])
         }
 
         $scope.getIssues = function () {
-            dashboardService.getIssues($scope.selection).then((data) => {
-            console.log($scope.selection,"this is sent");
+            dashboardService.getIssues(angular.merge({offset:$scope.offset,limit:$scope.limit},$scope.selection)).then((data) => {
             $scope.issues = data.data;
-             console.log($scope.issues,"Received");
+            $scope.length = data.length;
             }, (error) => {
-            console.log(error)
+            toaster.error(error);
         })};
+
+        $scope.next = function () {
+            $scope.offset = $scope.offset+4;
+            if ($scope.offset < $scope.length)
+            {
+            $scope.page = $scope.page + 1;
+            $scope.getIssues();
+            }
+            else{
+                toaster.error({title: "No More Data", body: "Can not go forward"})
+            }
+        };
+
+        $scope.prev = function () {
+            if ($scope.offset >> 0){
+                $scope.offset = $scope.offset - 4;
+                $scope.page = $scope.page-1;
+                $scope.getIssues();
+            }
+            else {
+                toaster.error({title: "No More Data", body: "Can not go back"})
+            }
+
+        };
 
         $scope.init();
 
