@@ -71,9 +71,9 @@ angular.module("controller.dashboard", [])
         })};
 
         $scope.next = function () {
-            $scope.offset = $scope.offset+4;
-            if ($scope.offset < $scope.length)
-            {
+
+            if ($scope.offset+4 < $scope.length)
+            {$scope.offset = $scope.offset+4;
             $scope.page = $scope.page + 1;
             $scope.getIssues();
             }
