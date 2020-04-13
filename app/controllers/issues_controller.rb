@@ -32,21 +32,24 @@ class IssuesController < ApplicationController
   end
 
   def getIssues
-    category = params[:category]
-    sub_category = params[:sub_category]
     issues = Issue.all
     puts issues
-    if category.present?
-      issues = issues.where(issue_category_id: category)
+    if params[:category].present?
+      issues = issues.where(issue_category_id: params[:category])
     end
-    if sub_category.present?
-      issues = issues.where(issue_sub_category_id: sub_category)
+    if params[:sub_category].present?
+      issues = issues.where(issue_sub_category_id: params[:sub_category])
     end
     if params[:date_range].present?
       date = params[:date_range]&.to_datetime
       issues = issues.where(['created_at >= ? AND created_at <= ?' ,(date+1).beginning_of_day ,(date+1).end_of_day ])
     end
-    render json: {title: "List Generated", message: "Filtered Issues", data: issues},state:200
+    if params[:phone].present?
+      issues = issues.joins(:user).merge(User.where(mobile: params[:phone]))
+    end
+    length = issues.count
+    issues = issues.offset(params[:offset]).limit(params[:limit])
+    render json: {title: "List Generated", message: "Filtered Issues", data: issues, length: length },state:200
 
   end
 

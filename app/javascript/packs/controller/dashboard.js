@@ -25,6 +25,10 @@ angular.module("controller.dashboard", [])
         $scope.sub_categories = [];
         $scope.selection = {};
         $scope.issues = [];
+        $scope.page = 1;
+        $scope.offset = 0;
+        $scope.limit = 4;
+        $scope.length;
 
 
         $scope.onCategoryChange = function () {
@@ -68,6 +72,30 @@ angular.module("controller.dashboard", [])
             }, (error) => {
                 BaseService.error(error)
         })};
+
+        $scope.next = function () {
+            $scope.offset = $scope.offset+4;
+            if ($scope.offset < $scope.length)
+            {
+            $scope.page = $scope.page + 1;
+            $scope.getIssues();
+            }
+            else{
+                toaster.error({title: "No More Data", body: "Can not go forward"})
+            }
+        };
+
+        $scope.prev = function () {
+            if ($scope.offset >> 0){
+                $scope.offset = $scope.offset - 4;
+                $scope.page = $scope.page-1;
+                $scope.getIssues();
+            }
+            else {
+                toaster.error({title: "No More Data", body: "Can not go back"})
+            }
+
+        };
 
         $scope.init();
 

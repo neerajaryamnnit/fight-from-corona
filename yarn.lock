@@ -843,6 +843,11 @@
     webpack-cli "^3.3.10"
     webpack-sources "^1.4.3"
 
+"@types/angular@^1.5.13":
+  version "1.7.0"
+  resolved "https://registry.yarnpkg.com/@types/angular/-/angular-1.7.0.tgz#3dd8d3b2d3b7ce2cca51b9fc3691b48b638eb468"
+  integrity sha512-zneUmi5I6oSkGBqkRP9rxbWX1mi6Yj7gNV+WNffmJLf8x4cnV0MGqXFNSP90NZ1kRRLCOdKBf9RIVD1TMg4aog==
+
 "@types/events@*":
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/@types/events/-/events-3.0.0.tgz#2862f3f58a9a7f7c3e78d79f130dd4d71c25c2a7"
@@ -1112,6 +1117,11 @@ angular-sanitize@^1.7.9:
   version "1.7.9"
   resolved "https://registry.yarnpkg.com/angular-sanitize/-/angular-sanitize-1.7.9.tgz#6b4d5e826abdabd352b13a7c65c8c74daf6a7b15"
   integrity sha512-nB/xe7JQWF9nLvhHommAICQ3eWrfRETo0EVGFESi952CDzDa+GAJ/2BFBNw44QqQPxj1Xua/uYKrbLsOGWZdbQ==
+
+angular-utils-pagination@^0.11.1:
+  version "0.11.1"
+  resolved "https://registry.yarnpkg.com/angular-utils-pagination/-/angular-utils-pagination-0.11.1.tgz#efad7c8879beb30ad3d77707f93e3d0ef51f2c66"
+  integrity sha1-7618iHm+swrT13cH+T49DvUfLGY=
 
 angular@^1.7.9:
   version "1.7.9"
@@ -4537,6 +4547,13 @@ neo-async@^2.5.0, neo-async@^2.6.1:
   version "2.6.1"
   resolved "https://registry.yarnpkg.com/neo-async/-/neo-async-2.6.1.tgz#ac27ada66167fa8849a6addd837f6b189ad2081c"
   integrity sha512-iyam8fBuCUpWeKPGpaNMetEocMt364qkCsfL9JuhjXX6dRnguRVOfk2GZaDpPjcOKiiXCPINZC1GczQ7iTq3Zw==
+
+ng-table@^3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/ng-table/-/ng-table-3.0.1.tgz#e0efa58887cf41805cb7973814da509dddb89368"
+  integrity sha1-4O+liIfPQYBct5c4FNpQnd24k2g=
+  dependencies:
+    "@types/angular" "^1.5.13"
 
 nice-try@^1.0.4:
   version "1.0.5"
