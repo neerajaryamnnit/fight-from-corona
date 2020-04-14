@@ -26,6 +26,7 @@
         </ul>
         <!--        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">-->
         <% if current_user %>
+          <a href=  "update-profile" ><button type="button" class="btn btn-outline-success my-2 mr-3 ml-3"><%= t('Update Profile') %></button></a>
           <label class="btn btn-outline-success my-2 my-sm-0"><%= t('username_html', name: current_user.name) %></label>
         <% end %>
       </div>

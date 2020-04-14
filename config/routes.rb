@@ -11,6 +11,8 @@ Rails.application.routes.draw do
   post "resend_otp" => "users#resend_otp"
   get "sign-up" => "users#sign_up"
   post "sign-up" => "users#sign_up_data"
+  get "update-profile" => "users#update_profile"
+  post "update-profile" => "users#update_profile_data"
 
   get "issues/list"
   get "issues/want_to_help"
