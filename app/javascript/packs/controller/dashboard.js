@@ -25,6 +25,11 @@ angular.module("controller.dashboard", [])
         $scope.sub_categories = [];
         $scope.selection = {};
         $scope.issues = [];
+        $scope.page = 1;
+        $scope.offset = 0;
+        $scope.limit = 3;
+        $scope.length;
+        $scope.download_obj;
 
 
         $scope.onCategoryChange = function () {
@@ -69,6 +74,45 @@ angular.module("controller.dashboard", [])
                 BaseService.error(error)
         })};
 
+        $scope.next = function () {
+
+            if ($scope.offset+3 < $scope.length)
+            {$scope.offset = $scope.offset+3;
+            $scope.page = $scope.page + 1;
+            $scope.getIssues();
+            }
+            else{
+                toaster.error({title: "No More Data", body: "Can not go forward"})
+            }
+        };
+
+        $scope.prev = function () {
+            if ($scope.offset >> 0){
+                $scope.offset = $scope.offset - 3;
+                $scope.page = $scope.page-1;
+                $scope.getIssues();
+            }
+            else {
+                toaster.error({title: "No More Data", body: "Can not go back"})
+            }
+
+        };
+
+        $scope.download = function () {
+            dashboardService.getIssues(angular.merge({csv: true},$scope.selection)).then((data) => {
+                $scope.download_obj = data.data;
+                console.log($scope.download_obj);
+                let blob = new Blob([$scope.download_obj], {type: 'text/csv'});
+                let url = window.URL || window.webkitURL;
+                let fileUrl = url.createObjectURL(blob);
+                let element = document.createElement('a');
+                element.href = fileUrl;
+                element.setAttribute('download', 'issues.csv');
+                element.click();
+            }, (error) => {
+                toaster.error({title:"Failed",data: "Unable to Download CSV"});
+            })
+        };
         $scope.init();
 
     }]);

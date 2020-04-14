@@ -32,20 +32,33 @@ class IssuesController < ApplicationController
   end
 
   def getIssues
-    category = params[:category]
-    sub_category = params[:sub_category]
-    if category.present?
-      issues = Issue.where(issue_category_id: category)
+    issues = Issue.all
+    puts issues
+    if params[:category].present?
+      issues = issues.where(issue_category_id: params[:category])
     end
-    if sub_category.present?
-      issues = Issue.where(issue_sub_category_id: sub_category)
+    if params[:sub_category].present?
+      issues = issues.where(issue_sub_category_id: params[:sub_category])
     end
     if params[:date_range].present?
       date = params[:date_range]&.to_datetime
-      issues = Issue.where(['created_at >= ? AND created_at <= ?' ,(date+1).beginning_of_day ,(date+1).end_of_day ])
+      issues = issues.where(['created_at >= ? AND created_at <= ?' ,(date+1).beginning_of_day ,(date+1).end_of_day ])
     end
-    render json: {title: "List Generated", message: "Filtered Issues", data: issues},state:200
-
+    if params[:phone].present?
+      issues = issues.joins(:user).merge(User.where(mobile: params[:phone]))
+    end
+    length = issues.count
+    issues = issues.offset(params[:offset]).limit(params[:limit])
+    if params[:csv].present?
+      items = "name,number,address,pincode,category,subcategory,description,created_at\n"
+      for issue in issues do
+        items +=  issue.name.to_s+','+issue.user.mobile.to_s+','+issue.address.split(',')[0]+.to_s+','+issue.pincode.to_s+','+issue.issue_category.name.to_s+','+issue.issue_sub_category.name.to_s+','+issue.description.to_s+','+issue.created_at.to_s+"\n"
+      end
+      puts items
+      render json: {title: "CSV Generated", message: "Download Available", data: items},status:200
+      else
+    render json: {title: "List Generated", message: "Filtered Issues", data: issues, length: length },state:200
+    end
   end
 
   def categories

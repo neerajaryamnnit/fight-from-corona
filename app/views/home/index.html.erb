@@ -1,5 +1,5 @@
 <section ng-app="FightWithCoronaApp" ng-controller="loginController" ng-init="init('<%= user_signed_in? %>')">
-
+  <div class="container-fluid">
     <!--    <div layout="row" layout-align="center">-->
     <!--      <b><label class="md-label" style="font-size: 20px">Fight with Corona</label></b>-->
     <!--    </div>-->
@@ -52,6 +52,40 @@
 
       </div>
     <% end %>
+    <div class="mt-2" layout="row" layout-align="center center">
+      <%#= image_tag("india", :alt => "rss feed", size: "48x48") %>
+      <h4><%= t(:corona_stats) %></h4>
+    </div>
+    <div layout="row" layout-align="center center">
+      <div layout="column" layout-align="center">
+        <div layout="row">
+          <div layout="column" flex="50" layout-align="center center">
+            <div class="stats total"><h5><%= t(:confirmed) %></h5>
+              <div class="stats-bottom"><h1><%= daily_case.total || 0 %></h1><h6></h6></div>
+            </div>
+          </div>
+          <div layout="column" flex="50" flex-offset="5" layout-align="center center">
+            <div class="stats active"><h5><%= t(:active) %></h5>
+              <div class="stats-bottom"><h1><%= daily_case.active || 0 %></h1><h6></h6></div>
+            </div>
+          </div>
+        </div>
+        <div layout="row">
+          <div layout="column" flex="50" layout-align="center center">
+            <div class="stats recover"><h5><%= t(:recovered) %></h5>
+              <div class="stats-bottom"><h1><%= daily_case.recover || 0 %></h1><h6></h6></div>
+            </div>
+          </div>
+          <div layout="column" flex="50" flex-offset="5" layout-align="center center">
+            <div class="stats deceased"><h5><%= t(:deceased) %></h5>
+              <div class="stats-bottom"><h1><%= daily_case.deceased || 0 %></h1><h6></h6></div>
+            </div>
+          </div>
+        </div>
+        <% if user_signed_in? %>
+          <div layout="row" layout-align="center">
+            <a flex="50" href="issues/list" target="_parent">
+              <md-button class="md-raised md-primary"><%= t(:ask_for_help) %></md-button>
 
         <% if user_signed_in? %>
       <div class="card mt-4">

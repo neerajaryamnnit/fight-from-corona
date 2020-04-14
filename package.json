@@ -13,9 +13,12 @@
     "angular-material": "^1.1.21",
     "angular-messages": "^1.7.9",
     "angular-sanitize": "^1.7.9",
+    "angular-utils-pagination": "^0.11.1",
     "angularjs-toaster": "^3.0.0",
     "bootstrap": "^4.4.1",
     "jquery": "^3.4.1",
+    "ng-table": "^3.0.1",
+    "ngcsv": "^0.2.0",
     "popper.js": "^1.16.1",
     "turbolinks": "^5.2.0",
     "ui-select": "^0.19.8"
