@@ -49,8 +49,16 @@ class IssuesController < ApplicationController
     end
     length = issues.count
     issues = issues.offset(params[:offset]).limit(params[:limit])
+    if params[:csv].present?
+      items = "name,number,address,pincode,category,subcategory,description,created_at\n"
+      for issue in issues do
+        items +=  issue.name.to_s+','+issue.user.mobile.to_s+','+issue.address.split(',')[0]+.to_s+','+issue.pincode.to_s+','+issue.issue_category.name.to_s+','+issue.issue_sub_category.name.to_s+','+issue.description.to_s+','+issue.created_at.to_s+"\n"
+      end
+      puts items
+      render json: {title: "CSV Generated", message: "Download Available", data: items},status:200
+      else
     render json: {title: "List Generated", message: "Filtered Issues", data: issues, length: length },state:200
-
+    end
   end
 
   def categories

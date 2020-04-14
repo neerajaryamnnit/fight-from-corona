@@ -5,7 +5,7 @@
   <div class="row">
     <div class="col-4">
   <lable for="distance" style="margin-right: 10px">Distance kms</lable>
-  <input type="number"  ng-model="selection.distance" id="distance" style="margin-right: 20px; width: 70px">
+  <input type="number" class="form-control-sm"  ng-model="selection.distance" id="distance" style="margin-right: 20px; width: 70px">
     </div>
     <div class="col-4">
       <lable for="Phone" style="margin-right: 10px">Phone</lable>
@@ -36,7 +36,7 @@
   <div class="row mt-3">
     <div class="col" style="padding-left: 400px">
   <button ng-click="getIssues()" class="btn btn-primary">Submit</button>
-  <button style="margin-left: 100px" class="btn btn-info">Download as CSV</button>
+  <button style="margin-left: 100px" ng-click="download()" class="btn btn-info">Download as CSV</button>
     </div>
   </div>
 </form>
@@ -63,12 +63,12 @@
       <td>{{issue.description}}</td>
     </tr>
     <div>
-    <button ng-click="prev()"><<</button>
+    <button class="btn btn-light" ng-click="prev()"><<</button>
       <a class="p-2">{{page}}</a>
-    <button ng-click="next()">>></button>
+    <button class="btn btn-light" ng-click="next()">>></button>
     </div>
   </table>
-    <button ng-click="clear()" class="btn btn-danger">Clear</button>
+    <button ng-click="clear()"  class="btn btn-danger">Clear</button>
     </div>
   </div>
 </section>
